@@ -1,0 +1,148 @@
+# Creating Agents
+
+Learn how to build, test, and publish your own AI agents for the agentx ecosystem.
+
+## Scaffold a New Agent
+
+Use the `init` command to create a new agent:
+
+```bash
+agentx init
+```
+
+This will prompt you for:
+
+- Agent name
+- Description
+- Category
+- MCP servers (optional)
+- License
+
+It creates the following structure:
+
+```
+my-agent/
+  agent.yaml          # Agent manifest
+  system-prompt.md    # System prompt for Claude
+  README.md           # Documentation
+  LICENSE             # License file
+```
+
+## The Agent Manifest
+
+Every agent needs an `agent.yaml` file. Here's a minimal example:
+
+```yaml
+name: my-agent
+version: 1.0.0
+description: A helpful AI assistant
+author: "@yourusername"
+```
+
+See the [agent.yaml reference](/docs/agent-yaml-reference) for all available fields.
+
+## System Prompt
+
+The `system-prompt.md` file defines the agent's personality and behavior. It's passed to Claude as the system prompt.
+
+You can use template variables in the system prompt:
+
+```markdown
+You are {{config.name}}, a helpful assistant.
+The user prefers {{config.language}} language.
+```
+
+Config variables are defined in `agent.yaml` under the `config` section.
+
+## MCP Servers
+
+Agents can declare MCP (Model Context Protocol) servers that provide tools and resources:
+
+```yaml
+mcp_servers:
+  gmail:
+    command: npx
+    args: ["-y", "@anthropic/mcp-server-gmail"]
+    env:
+      GMAIL_TOKEN: "${secrets.GMAIL_TOKEN}"
+```
+
+Secret references (`${secrets.KEY}`) are resolved from the encrypted secret store at runtime.
+
+## Secrets
+
+Declare required secrets in `agent.yaml`:
+
+```yaml
+secrets:
+  - name: GMAIL_TOKEN
+    description: Gmail API OAuth token
+    required: true
+  - name: BACKUP_EMAIL
+    description: Backup email address
+    required: false
+```
+
+Users configure secrets with `agentx configure <agent>`.
+
+## Permissions
+
+Declare what permissions your agent needs:
+
+```yaml
+permissions:
+  filesystem: true
+  network: true
+  execute_commands: false
+```
+
+This helps users understand the agent's capabilities before installing.
+
+## Validate Your Agent
+
+Run validation to check your manifest:
+
+```bash
+agentx validate
+```
+
+Run the test command for a more thorough check:
+
+```bash
+agentx test
+```
+
+## Publish to the Registry
+
+First, authenticate with GitHub:
+
+```bash
+agentx login
+```
+
+Then publish your agent:
+
+```bash
+agentx publish
+```
+
+Your agent will be available at `@yourusername/agent-name`.
+
+## Updating Your Agent
+
+Bump the version in `agent.yaml`, then publish again:
+
+```bash
+agentx publish
+```
+
+Each version is immutable — you cannot overwrite an existing version.
+
+## Best Practices
+
+- Write a clear, focused system prompt
+- Declare all required secrets and permissions
+- Include usage examples in your README
+- Use semantic versioning
+- Test your agent locally before publishing
+- Keep your agent focused on a single task or domain

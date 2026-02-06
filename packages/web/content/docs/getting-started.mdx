@@ -1,0 +1,104 @@
+# Getting Started
+
+Get up and running with agentx in under a minute.
+
+## Prerequisites
+
+- **Node.js** >= 18
+- **Claude CLI** installed and authenticated (`claude --version`)
+- A terminal (macOS or Linux)
+
+## Install the CLI
+
+Install agentx globally via npm:
+
+```bash
+npm install -g agentx
+```
+
+Verify the installation:
+
+```bash
+agentx --version
+agentx doctor
+```
+
+The `doctor` command checks that your environment is set up correctly.
+
+## Install Your First Agent
+
+Browse the registry for available agents:
+
+```bash
+agentx search email
+```
+
+Install an agent:
+
+```bash
+agentx install @agentx/gmail-agent
+```
+
+## Configure Secrets
+
+Some agents need API tokens or credentials. Configure them interactively:
+
+```bash
+agentx configure gmail-agent
+```
+
+This will prompt you for each required secret. Secrets are encrypted and stored locally.
+
+## Run an Agent
+
+Run the agent with a prompt:
+
+```bash
+agentx run gmail-agent "summarize my unread emails from today"
+```
+
+For interactive mode (chat-style):
+
+```bash
+agentx run gmail-agent -i
+```
+
+## Pipe Input
+
+You can pipe content into an agent:
+
+```bash
+cat report.csv | agentx run data-analyst "analyze this data"
+```
+
+## List Installed Agents
+
+```bash
+agentx list
+```
+
+## Update Agents
+
+Update a specific agent:
+
+```bash
+agentx update gmail-agent
+```
+
+Update all installed agents:
+
+```bash
+agentx update --all
+```
+
+## Uninstall Agents
+
+```bash
+agentx uninstall gmail-agent
+```
+
+## Next Steps
+
+- Browse the [agent marketplace](/agents) to discover more agents
+- Learn how to [create your own agent](/docs/creating-agents)
+- Read the [agent.yaml reference](/docs/agent-yaml-reference) for the full manifest spec

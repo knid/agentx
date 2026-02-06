@@ -1,0 +1,204 @@
+# agent.yaml Reference
+
+Complete reference for the agent manifest file format.
+
+## Required Fields
+
+### name
+
+The agent name. Must be lowercase alphanumeric with hyphens, 1-100 characters.
+
+```yaml
+name: gmail-agent
+```
+
+### version
+
+Semantic version string (semver).
+
+```yaml
+version: 1.2.0
+```
+
+### description
+
+Short description of the agent, 1-500 characters.
+
+```yaml
+description: AI email assistant for Gmail
+```
+
+### author
+
+Author scope, must start with `@`.
+
+```yaml
+author: "@agentx"
+```
+
+## Optional Fields
+
+### license
+
+License identifier. Defaults to MIT.
+
+```yaml
+license: MIT
+```
+
+### tags
+
+Array of searchable tags, maximum 10.
+
+```yaml
+tags:
+  - email
+  - gmail
+  - productivity
+```
+
+### category
+
+Agent category. Valid values:
+
+- `productivity`
+- `devtools`
+- `communication`
+- `data`
+- `writing`
+- `research`
+- `automation`
+- `security`
+- `monitoring`
+- `other`
+
+```yaml
+category: productivity
+```
+
+### requires
+
+System requirements for the agent.
+
+```yaml
+requires:
+  claude_cli: ">=1.0.0"
+  node: ">=18.0.0"
+  os:
+    - darwin
+    - linux
+```
+
+### mcp_servers
+
+MCP server declarations. Each server specifies a command, args, and optional environment variables.
+
+```yaml
+mcp_servers:
+  gmail:
+    command: npx
+    args: ["-y", "@anthropic/mcp-server-gmail"]
+    env:
+      GMAIL_TOKEN: "${secrets.GMAIL_TOKEN}"
+  filesystem:
+    command: npx
+    args: ["-y", "@anthropic/mcp-server-filesystem", "/home/user/documents"]
+```
+
+Environment variables can reference secrets using `${secrets.KEY}` syntax.
+
+### secrets
+
+Secret declarations that the agent requires.
+
+```yaml
+secrets:
+  - name: GMAIL_TOKEN
+    description: Gmail API OAuth token
+    required: true
+  - name: BACKUP_EMAIL
+    description: Optional backup email address
+    required: false
+```
+
+### permissions
+
+Permission declarations that inform users of the agent's capabilities.
+
+```yaml
+permissions:
+  filesystem: true
+  network: true
+  execute_commands: false
+```
+
+### config
+
+Configuration options that users can customize. Values are injected into the system prompt using `{{config.key}}` syntax.
+
+```yaml
+config:
+  - name: language
+    description: Preferred response language
+    default: English
+  - name: tone
+    description: Response tone
+    default: professional
+```
+
+### examples
+
+Example prompts that demonstrate agent usage.
+
+```yaml
+examples:
+  - prompt: "summarize unread emails from today"
+  - prompt: "draft a reply to John about the deadline"
+  - prompt: "find all emails from acme.com in the last week"
+```
+
+## Full Example
+
+```yaml
+name: gmail-agent
+version: 1.0.0
+description: AI email assistant for Gmail with search, summarize, and draft capabilities
+author: "@agentx"
+license: MIT
+category: productivity
+tags:
+  - email
+  - gmail
+  - productivity
+
+requires:
+  claude_cli: ">=1.0.0"
+  node: ">=18.0.0"
+
+mcp_servers:
+  gmail:
+    command: npx
+    args: ["-y", "@anthropic/mcp-server-gmail"]
+    env:
+      GMAIL_TOKEN: "${secrets.GMAIL_TOKEN}"
+
+secrets:
+  - name: GMAIL_TOKEN
+    description: Gmail API OAuth token
+    required: true
+
+permissions:
+  filesystem: false
+  network: true
+  execute_commands: false
+
+config:
+  - name: language
+    description: Preferred response language
+    default: English
+
+examples:
+  - prompt: "summarize unread emails from today"
+  - prompt: "draft a reply to John about the deadline"
+  - prompt: "find all emails from acme.com in the last week"
+```

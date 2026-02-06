@@ -235,24 +235,24 @@
 
 ### Implementation for User Story 6
 
-- [ ] T096 [P] [US6] Create root layout at packages/web/src/app/layout.tsx with Tailwind, metadata, Header/Footer components
-- [ ] T097 [P] [US6] Create Header component at packages/web/src/components/Header.tsx with logo, search bar, navigation
-- [ ] T098 [P] [US6] Create Footer component at packages/web/src/components/Footer.tsx with links, GitHub, MIT badge
-- [ ] T099 [US6] Create AgentCard component at packages/web/src/components/AgentCard.tsx - display name, description, stats, install command
-- [ ] T100 [US6] Create InstallCommand component at packages/web/src/components/InstallCommand.tsx - copy-to-clipboard install command
-- [ ] T101 [US6] Create AgentSearch component at packages/web/src/components/AgentSearch.tsx - search input with results
-- [ ] T102 [US6] Create CategoryBadge component at packages/web/src/components/CategoryBadge.tsx
-- [ ] T103 [US6] Create landing page at packages/web/src/app/page.tsx - hero section, search bar, featured agents, categories
-- [ ] T104 [US6] Create agent browse page at packages/web/src/app/agents/page.tsx - paginated list with search and category filters
-- [ ] T105 [US6] Create agent detail page at packages/web/src/app/agents/[scope]/[name]/page.tsx - README, install command, stats, examples, permissions, MCP servers
-- [ ] T106 [US6] Create category page at packages/web/src/app/categories/[category]/page.tsx - filtered agent list
-- [ ] T107 [US6] Create user profile page at packages/web/src/app/users/[username]/page.tsx - avatar, bio, published agents
-- [ ] T108 [US6] Create docs index at packages/web/src/app/docs/page.tsx
-- [ ] T109 [P] [US6] Write getting-started doc at packages/web/content/docs/getting-started.mdx
-- [ ] T110 [P] [US6] Write creating-agents doc at packages/web/content/docs/creating-agents.mdx
-- [ ] T111 [P] [US6] Write agent.yaml reference doc at packages/web/content/docs/agent-yaml-reference.mdx
-- [ ] T112 [US6] Implement GET /api/v1/users/:username route at packages/web/src/app/api/v1/users/[username]/route.ts
-- [ ] T113 [US6] Implement GET /api/v1/users/:username/agents route (extend users API)
+- [x] T096 [P] [US6] Create root layout at packages/web/src/app/layout.tsx with Tailwind, metadata, Header/Footer components
+- [x] T097 [P] [US6] Create Header component at packages/web/src/components/Header.tsx with logo, search bar, navigation
+- [x] T098 [P] [US6] Create Footer component at packages/web/src/components/Footer.tsx with links, GitHub, MIT badge
+- [x] T099 [US6] Create AgentCard component at packages/web/src/components/AgentCard.tsx - display name, description, stats, install command
+- [x] T100 [US6] Create InstallCommand component at packages/web/src/components/InstallCommand.tsx - copy-to-clipboard install command
+- [x] T101 [US6] Create AgentSearch component at packages/web/src/components/AgentSearch.tsx - search input with results
+- [x] T102 [US6] Create CategoryBadge component at packages/web/src/components/CategoryBadge.tsx
+- [x] T103 [US6] Create landing page at packages/web/src/app/page.tsx - hero section, search bar, featured agents, categories
+- [x] T104 [US6] Create agent browse page at packages/web/src/app/agents/page.tsx - paginated list with search and category filters
+- [x] T105 [US6] Create agent detail page at packages/web/src/app/agents/[scope]/[name]/page.tsx - README, install command, stats, examples, permissions, MCP servers
+- [x] T106 [US6] Create category page at packages/web/src/app/categories/[category]/page.tsx - filtered agent list
+- [x] T107 [US6] Create user profile page at packages/web/src/app/users/[username]/page.tsx - avatar, bio, published agents
+- [x] T108 [US6] Create docs index at packages/web/src/app/docs/page.tsx
+- [x] T109 [P] [US6] Write getting-started doc at packages/web/content/docs/getting-started.mdx
+- [x] T110 [P] [US6] Write creating-agents doc at packages/web/content/docs/creating-agents.mdx
+- [x] T111 [P] [US6] Write agent.yaml reference doc at packages/web/content/docs/agent-yaml-reference.mdx
+- [x] T112 [US6] Implement GET /api/v1/users/:username route at packages/web/src/app/api/v1/users/[username]/route.ts
+- [x] T113 [US6] Implement GET /api/v1/users/:username/agents route (extend users API)
 
 **Checkpoint**: agentx.dev is live with landing page, agent browse/detail, and documentation
 
