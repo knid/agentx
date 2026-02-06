@@ -1,0 +1,33 @@
+name: {{NAME}}
+version: 0.1.0
+description: {{DESCRIPTION}}
+author: "{{AUTHOR}}"
+license: {{LICENSE}}
+category: {{CATEGORY}}
+
+# Uncomment and configure MCP servers as needed:
+# mcp_servers:
+#   filesystem:
+#     command: npx
+#     args:
+#       - "-y"
+#       - "@anthropic/mcp-server-filesystem"
+#     env:
+#       ALLOWED_DIR: "${secrets.WORK_DIR}"
+
+# Uncomment to declare secrets your agent needs:
+# secrets:
+#   - name: API_KEY
+#     description: Your API key
+#     required: true
+
+# Uncomment to declare permissions:
+# permissions:
+#   filesystem: false
+#   network: false
+#   execute_commands: false
+
+# Add example prompts:
+examples:
+  - prompt: "hello"
+    description: A basic greeting

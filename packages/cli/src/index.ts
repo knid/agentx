@@ -4,6 +4,10 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { runCommand } from './commands/run.js';
 import { configureCommand } from './commands/configure.js';
+import { initCommand } from './commands/init.js';
+import { validateCommand } from './commands/validate.js';
+import { testCommand } from './commands/test.js';
+import { doctorCommand } from './commands/doctor.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -19,5 +23,9 @@ program
 
 program.addCommand(runCommand);
 program.addCommand(configureCommand);
+program.addCommand(initCommand);
+program.addCommand(validateCommand);
+program.addCommand(testCommand);
+program.addCommand(doctorCommand);
 
 program.parse();

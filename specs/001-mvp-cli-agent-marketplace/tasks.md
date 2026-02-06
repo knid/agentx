@@ -125,12 +125,12 @@
 
 ### Implementation for User Story 5
 
-- [ ] T050 [P] [US5] Create init template files at packages/cli/src/templates/basic/agent.yaml (with placeholders), system-prompt.md (with example content), README.md, LICENSE
-- [ ] T051 [US5] Implement the `init` command at packages/cli/src/commands/init.ts - clack prompts for name, description, category, MCP servers, license; copy and populate templates
-- [ ] T052 [US5] Implement the `validate` command at packages/cli/src/commands/validate.ts - parse agent.yaml with Zod schema, check system-prompt.md exists, report errors
-- [ ] T053 [US5] Implement the `test` command at packages/cli/src/commands/test.ts - run validate + attempt MCP server startability check
-- [ ] T054 [US5] Implement the `doctor` command at packages/cli/src/commands/doctor.ts - check claude CLI (which claude + version), Node.js version, agentx version, auth status
-- [ ] T055 [US5] Wire init, validate, test, doctor commands into packages/cli/src/index.ts
+- [x] T050 [P] [US5] Create init template files at packages/cli/src/templates/basic/agent.yaml (with placeholders), system-prompt.md (with example content), README.md, LICENSE
+- [x] T051 [US5] Implement the `init` command at packages/cli/src/commands/init.ts - clack prompts for name, description, category, MCP servers, license; copy and populate templates
+- [x] T052 [US5] Implement the `validate` command at packages/cli/src/commands/validate.ts - parse agent.yaml with Zod schema, check system-prompt.md exists, report errors
+- [x] T053 [US5] Implement the `test` command at packages/cli/src/commands/test.ts - run validate + attempt MCP server startability check
+- [x] T054 [US5] Implement the `doctor` command at packages/cli/src/commands/doctor.ts - check claude CLI (which claude + version), Node.js version, agentx version, auth status
+- [x] T055 [US5] Wire init, validate, test, doctor commands into packages/cli/src/index.ts
 
 **Checkpoint**: Creators can scaffold agents and validate them locally
 
