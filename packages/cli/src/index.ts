@@ -12,6 +12,11 @@ import { loginCommand } from './commands/login.js';
 import { logoutCommand } from './commands/logout.js';
 import { whoamiCommand } from './commands/whoami.js';
 import { publishCommand } from './commands/publish.js';
+import { installCommand } from './commands/install.js';
+import { uninstallCommand } from './commands/uninstall.js';
+import { listCommand } from './commands/list.js';
+import { updateCommand } from './commands/update.js';
+import { infoCommand } from './commands/info.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -35,5 +40,10 @@ program.addCommand(loginCommand);
 program.addCommand(logoutCommand);
 program.addCommand(whoamiCommand);
 program.addCommand(publishCommand);
+program.addCommand(installCommand);
+program.addCommand(uninstallCommand);
+program.addCommand(listCommand);
+program.addCommand(updateCommand);
+program.addCommand(infoCommand);
 
 program.parse();

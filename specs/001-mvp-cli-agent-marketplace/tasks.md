@@ -187,21 +187,21 @@
 
 ### Tests for User Story 2
 
-- [ ] T077 [P] [US2] Unit test for download module at packages/cli/test/registry/download.test.ts - test tarball download, SHA-256 verification, extraction
-- [ ] T078 [P] [US2] Unit test for semver utilities at packages/cli/test/utils/semver.test.ts - test version comparison, range matching
+- [x] T077 [P] [US2] Unit test for download module at packages/cli/test/registry/download.test.ts - test tarball download, SHA-256 verification, extraction
+- [x] T078 [P] [US2] Unit test for semver utilities at packages/cli/test/utils/semver.test.ts - test version comparison, range matching
 
 ### Implementation for User Story 2
 
-- [ ] T079 [US2] Implement semver utilities at packages/cli/src/utils/semver.ts - compareVersions(), satisfiesRange(), isNewerThan()
-- [ ] T080 [US2] Implement download module at packages/cli/src/registry/download.ts - downloadAgent(scope, name, version) fetching metadata, downloading tarball, verifying SHA-256, extracting to agents dir
-- [ ] T081 [US2] Implement GET /api/v1/agents/:scope/:name route at packages/web/src/app/api/v1/agents/[scope]/[name]/route.ts - return agent metadata
-- [ ] T082 [US2] Implement GET /api/v1/agents/:scope/:name/download/:version route at packages/web/src/app/api/v1/agents/[scope]/[name]/download/[version]/route.ts - return tarball URL and SHA-256, increment download count
-- [ ] T083 [US2] Implement the `install` command at packages/cli/src/commands/install.ts - parse scope/name/version, call download module, warn if secrets needed
-- [ ] T084 [US2] Implement the `uninstall` command at packages/cli/src/commands/uninstall.ts - remove agent dir and secrets
-- [ ] T085 [US2] Implement the `list` command at packages/cli/src/commands/list.ts - scan ~/.agentx/agents/, read each agent.yaml, display table
-- [ ] T086 [US2] Implement the `update` command at packages/cli/src/commands/update.ts - check registry for newer versions, re-download if available, support --all flag
-- [ ] T087 [US2] Implement the `info` command at packages/cli/src/commands/info.ts - fetch and display agent details from registry
-- [ ] T088 [US2] Wire install, uninstall, list, update, info commands into packages/cli/src/index.ts
+- [x] T079 [US2] Implement semver utilities at packages/cli/src/utils/semver.ts - compareVersions(), satisfiesRange(), isNewerThan()
+- [x] T080 [US2] Implement download module at packages/cli/src/registry/download.ts - downloadAgent(scope, name, version) fetching metadata, downloading tarball, verifying SHA-256, extracting to agents dir
+- [x] T081 [US2] Implement GET /api/v1/agents/:scope/:name route at packages/web/src/app/api/v1/agents/[scope]/[name]/route.ts - return agent metadata
+- [x] T082 [US2] Implement GET /api/v1/agents/:scope/:name/download/:version route at packages/web/src/app/api/v1/agents/[scope]/[name]/download/[version]/route.ts - return tarball URL and SHA-256, increment download count
+- [x] T083 [US2] Implement the `install` command at packages/cli/src/commands/install.ts - parse scope/name/version, call download module, warn if secrets needed
+- [x] T084 [US2] Implement the `uninstall` command at packages/cli/src/commands/uninstall.ts - remove agent dir and secrets
+- [x] T085 [US2] Implement the `list` command at packages/cli/src/commands/list.ts - scan ~/.agentx/agents/, read each agent.yaml, display table
+- [x] T086 [US2] Implement the `update` command at packages/cli/src/commands/update.ts - check registry for newer versions, re-download if available, support --all flag
+- [x] T087 [US2] Implement the `info` command at packages/cli/src/commands/info.ts - fetch and display agent details from registry
+- [x] T088 [US2] Wire install, uninstall, list, update, info commands into packages/cli/src/index.ts
 
 **Checkpoint**: Full agent lifecycle works - install -> configure -> run -> update -> uninstall
 
