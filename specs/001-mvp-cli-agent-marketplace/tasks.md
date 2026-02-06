@@ -144,36 +144,36 @@
 
 ### Registry Backend Setup (prerequisite for publish, install, and search)
 
-- [ ] T056 Create Drizzle schema at packages/web/src/lib/db/schema.ts with users, agents, agent_versions, stars, downloads, telemetry tables per data-model.md
-- [ ] T057 Create DB connection at packages/web/src/lib/db/index.ts using @neondatabase/serverless with Drizzle adapter
-- [ ] T058 Generate initial Drizzle migration at packages/web/src/lib/db/migrations/ using `drizzle-kit generate`
-- [ ] T059 [P] Create R2 storage client at packages/web/src/lib/storage/r2.ts using @aws-sdk/client-s3 (S3Client with R2 endpoint)
-- [ ] T060 [P] Create rate limiter at packages/web/src/lib/utils/rate-limit.ts using @upstash/ratelimit
-- [ ] T061 [P] Create server-side validation helpers at packages/web/src/lib/utils/validation.ts for agent.yaml server validation
-- [ ] T062 Create GitHub OAuth helper at packages/web/src/lib/auth/github.ts - exchangeCodeForToken(), getUserProfile(), generateAgentxToken()
+- [x] T056 Create Drizzle schema at packages/web/src/lib/db/schema.ts with users, agents, agent_versions, stars, downloads, telemetry tables per data-model.md
+- [x] T057 Create DB connection at packages/web/src/lib/db/index.ts using @neondatabase/serverless with Drizzle adapter
+- [ ] T058 Generate initial Drizzle migration at packages/web/src/lib/db/migrations/ using `drizzle-kit generate` (skipped: requires DATABASE_URL)
+- [x] T059 [P] Create R2 storage client at packages/web/src/lib/storage/r2.ts using @aws-sdk/client-s3 (S3Client with R2 endpoint)
+- [x] T060 [P] Create rate limiter at packages/web/src/lib/utils/rate-limit.ts using @upstash/ratelimit
+- [x] T061 [P] Create server-side validation helpers at packages/web/src/lib/utils/validation.ts for agent.yaml server validation
+- [x] T062 Create GitHub OAuth helper at packages/web/src/lib/auth/github.ts - exchangeCodeForToken(), getUserProfile(), generateAgentxToken()
 
 ### Auth API Routes
 
-- [ ] T063 [US4] Implement POST /api/v1/auth/github route at packages/web/src/app/api/v1/auth/github/route.ts - generate auth URL with redirect
-- [ ] T064 [US4] Implement GET /api/v1/auth/callback route at packages/web/src/app/api/v1/auth/callback/route.ts - exchange code, create/update user, return token
+- [x] T063 [US4] Implement POST /api/v1/auth/github route at packages/web/src/app/api/v1/auth/github/route.ts - generate auth URL with redirect
+- [x] T064 [US4] Implement GET /api/v1/auth/callback route at packages/web/src/app/api/v1/auth/callback/route.ts - exchange code, create/update user, return token
 
 ### CLI Auth Commands
 
-- [ ] T065 [US4] Implement GitHub OAuth flow at packages/cli/src/auth/github-oauth.ts - start local server, open browser, receive callback, exchange for token
-- [ ] T066 [US4] Implement token store at packages/cli/src/auth/token-store.ts - saveToken(), loadToken(), clearToken(), isAuthenticated()
-- [ ] T067 [US4] Implement the `login` command at packages/cli/src/commands/login.ts - trigger OAuth flow, save token
-- [ ] T068 [P] [US4] Implement the `logout` command at packages/cli/src/commands/logout.ts - clear token
-- [ ] T069 [P] [US4] Implement the `whoami` command at packages/cli/src/commands/whoami.ts - display username and auth status
+- [x] T065 [US4] Implement GitHub OAuth flow at packages/cli/src/auth/github-oauth.ts - start local server, open browser, receive callback, exchange for token
+- [x] T066 [US4] Implement token store at packages/cli/src/auth/token-store.ts - saveToken(), loadToken(), clearToken(), isAuthenticated()
+- [x] T067 [US4] Implement the `login` command at packages/cli/src/commands/login.ts - trigger OAuth flow, save token
+- [x] T068 [P] [US4] Implement the `logout` command at packages/cli/src/commands/logout.ts - clear token
+- [x] T069 [P] [US4] Implement the `whoami` command at packages/cli/src/commands/whoami.ts - display username and auth status
 
 ### Publish Pipeline
 
-- [ ] T070 [US4] Implement tarball creation at packages/cli/src/utils/tar.ts - createTarball(agentDir) returns Buffer and SHA-256 hash
-- [ ] T071 [US4] Implement SHA-256 hashing at packages/cli/src/utils/hash.ts - hashBuffer(buffer), hashFile(path)
-- [ ] T072 [US4] Implement registry client at packages/cli/src/registry/client.ts - base HTTP client with auth headers, error handling
-- [ ] T073 [US4] Implement publish client at packages/cli/src/registry/publish.ts - publishAgent(agentDir) validates, creates tarball, uploads via registry client
-- [ ] T074 [US4] Implement PUT /api/v1/agents/:scope/:name route at packages/web/src/app/api/v1/agents/route.ts - authenticate, validate, upload to R2, insert/update DB
-- [ ] T075 [US4] Implement the `publish` command at packages/cli/src/commands/publish.ts - validate, authenticate check, call publish client, display result URL
-- [ ] T076 [US4] Wire login, logout, whoami, publish commands into packages/cli/src/index.ts
+- [x] T070 [US4] Implement tarball creation at packages/cli/src/utils/tar.ts - createTarball(agentDir) returns Buffer and SHA-256 hash
+- [x] T071 [US4] Implement SHA-256 hashing at packages/cli/src/utils/hash.ts - hashBuffer(buffer), hashFile(path)
+- [x] T072 [US4] Implement registry client at packages/cli/src/registry/client.ts - base HTTP client with auth headers, error handling
+- [x] T073 [US4] Implement publish client at packages/cli/src/registry/publish.ts - publishAgent(agentDir) validates, creates tarball, uploads via registry client
+- [x] T074 [US4] Implement PUT /api/v1/agents/:scope/:name route at packages/web/src/app/api/v1/agents/route.ts - authenticate, validate, upload to R2, insert/update DB
+- [x] T075 [US4] Implement the `publish` command at packages/cli/src/commands/publish.ts - validate, authenticate check, call publish client, display result URL
+- [x] T076 [US4] Wire login, logout, whoami, publish commands into packages/cli/src/index.ts
 
 **Checkpoint**: End-to-end publish flow works - agent creator can authenticate and publish an agent
 

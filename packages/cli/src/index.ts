@@ -8,6 +8,10 @@ import { initCommand } from './commands/init.js';
 import { validateCommand } from './commands/validate.js';
 import { testCommand } from './commands/test.js';
 import { doctorCommand } from './commands/doctor.js';
+import { loginCommand } from './commands/login.js';
+import { logoutCommand } from './commands/logout.js';
+import { whoamiCommand } from './commands/whoami.js';
+import { publishCommand } from './commands/publish.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -27,5 +31,9 @@ program.addCommand(initCommand);
 program.addCommand(validateCommand);
 program.addCommand(testCommand);
 program.addCommand(doctorCommand);
+program.addCommand(loginCommand);
+program.addCommand(logoutCommand);
+program.addCommand(whoamiCommand);
+program.addCommand(publishCommand);
 
 program.parse();
