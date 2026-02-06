@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { runCommand } from './commands/run.js';
+import { configureCommand } from './commands/configure.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -17,5 +18,6 @@ program
   .version(pkg.version);
 
 program.addCommand(runCommand);
+program.addCommand(configureCommand);
 
 program.parse();

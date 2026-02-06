@@ -102,11 +102,11 @@
 
 ### Implementation for User Story 7
 
-- [ ] T043 [US7] Implement encryption module at packages/cli/src/secrets/encrypt.ts - deriveKey(), encrypt(secrets), decrypt(encrypted)
-- [ ] T044 [US7] Implement secret store at packages/cli/src/secrets/store.ts - saveSecrets(agentName, secrets), loadSecrets(agentName), deleteSecrets(agentName), hasSecrets(agentName)
-- [ ] T045 [US7] Implement configure flow at packages/cli/src/secrets/configure-flow.ts - interactive prompts (clack) for each declared secret in agent.yaml
-- [ ] T046 [US7] Implement the `configure` command at packages/cli/src/commands/configure.ts - register with Commander, load agent.yaml secrets declarations, run configure flow
-- [ ] T047 [US7] Wire configure command into packages/cli/src/index.ts
+- [x] T043 [US7] Implement encryption module at packages/cli/src/secrets/encrypt.ts - deriveKey(), encrypt(secrets), decrypt(encrypted)
+- [x] T044 [US7] Implement secret store at packages/cli/src/secrets/store.ts - saveSecrets(agentName, secrets), loadSecrets(agentName), deleteSecrets(agentName), hasSecrets(agentName)
+- [x] T045 [US7] Implement configure flow at packages/cli/src/secrets/configure-flow.ts - interactive prompts (clack) for each declared secret in agent.yaml
+- [x] T046 [US7] Implement the `configure` command at packages/cli/src/commands/configure.ts - register with Commander, load agent.yaml secrets declarations, run configure flow
+- [x] T047 [US7] Wire configure command into packages/cli/src/index.ts
 
 **Checkpoint**: Users can configure agent secrets, secrets are encrypted at rest, run command can resolve ${secrets.*}
 
