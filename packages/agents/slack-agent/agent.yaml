@@ -1,0 +1,53 @@
+name: slack-agent
+version: 1.0.0
+description: "AI Slack assistant — send messages, search conversations, and manage channels from the terminal"
+author: "@agentx"
+license: MIT
+category: communication
+tags:
+  - slack
+  - messaging
+  - communication
+  - teams
+  - notifications
+
+requires:
+  claude_cli: ">=1.0.0"
+  node: ">=18.0.0"
+
+mcp_servers:
+  slack:
+    command: npx
+    args:
+      - "-y"
+      - "@anthropic/mcp-server-slack"
+    env:
+      SLACK_TOKEN: "${secrets.SLACK_TOKEN}"
+
+secrets:
+  - name: SLACK_TOKEN
+    description: "Slack Bot User OAuth token (xoxb-...) with channels:read, chat:write, and search:read scopes"
+    required: true
+
+permissions:
+  network: true
+
+config:
+  - key: default_channel
+    description: "Default Slack channel for sending messages (e.g., #general)"
+    default: ""
+  - key: max_results
+    description: "Maximum number of messages to return in search results"
+    default: "20"
+
+examples:
+  - prompt: "Send a message to #engineering saying the deploy is complete"
+    description: Post a message to a channel
+  - prompt: "What were the latest messages in #general?"
+    description: Read recent channel messages
+  - prompt: "Search Slack for discussions about the API redesign"
+    description: Search across conversations
+  - prompt: "Summarize what happened in #product today"
+    description: Get a daily summary of a channel
+  - prompt: "Send a DM to @alice asking about the meeting time"
+    description: Send a direct message

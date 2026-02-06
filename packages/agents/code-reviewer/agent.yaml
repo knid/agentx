@@ -1,0 +1,63 @@
+name: code-reviewer
+version: 1.0.0
+description: "AI code review assistant — review PRs, analyze diffs, and provide actionable feedback"
+author: "@agentx"
+license: MIT
+category: devtools
+tags:
+  - code-review
+  - github
+  - quality
+  - devtools
+  - security
+
+requires:
+  claude_cli: ">=1.0.0"
+  node: ">=18.0.0"
+
+mcp_servers:
+  github:
+    command: npx
+    args:
+      - "-y"
+      - "@anthropic/mcp-server-github"
+    env:
+      GITHUB_TOKEN: "${secrets.GITHUB_TOKEN}"
+  filesystem:
+    command: npx
+    args:
+      - "-y"
+      - "@anthropic/mcp-server-filesystem"
+      - "${secrets.WORK_DIR}"
+
+secrets:
+  - name: GITHUB_TOKEN
+    description: "GitHub personal access token with repo scope for PR access"
+    required: true
+  - name: WORK_DIR
+    description: "Local directory path of the repository to review (e.g., /Users/you/projects/myrepo)"
+    required: true
+
+permissions:
+  filesystem: true
+  network: true
+
+config:
+  - key: review_focus
+    description: "Areas to focus on: correctness, security, performance, readability, all"
+    default: "all"
+  - key: severity_threshold
+    description: "Minimum severity to report: info, warning, error"
+    default: "info"
+
+examples:
+  - prompt: "Review PR #42 for potential bugs and security issues"
+    description: Review a specific pull request
+  - prompt: "Analyze the diff between main and feature-branch"
+    description: Review changes between branches
+  - prompt: "Review the code in src/auth/ for security vulnerabilities"
+    description: Security-focused review of a directory
+  - prompt: "What could be improved in utils/parser.ts?"
+    description: Review a specific file
+  - prompt: "Check if the latest changes follow our coding standards"
+    description: Style and convention review

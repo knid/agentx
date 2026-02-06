@@ -1,0 +1,53 @@
+name: github-agent
+version: 1.0.0
+description: "AI GitHub assistant — manage PRs, issues, repos, and code reviews from the terminal"
+author: "@agentx"
+license: MIT
+category: devtools
+tags:
+  - github
+  - git
+  - pull-requests
+  - issues
+  - devtools
+
+requires:
+  claude_cli: ">=1.0.0"
+  node: ">=18.0.0"
+
+mcp_servers:
+  github:
+    command: npx
+    args:
+      - "-y"
+      - "@anthropic/mcp-server-github"
+    env:
+      GITHUB_TOKEN: "${secrets.GITHUB_TOKEN}"
+
+secrets:
+  - name: GITHUB_TOKEN
+    description: "GitHub personal access token with repo, read:org, and read:user scopes"
+    required: true
+
+permissions:
+  network: true
+
+config:
+  - key: default_repo
+    description: "Default repository in owner/repo format (e.g., myorg/myrepo)"
+    default: ""
+  - key: max_results
+    description: "Maximum number of results to display for list operations"
+    default: "20"
+
+examples:
+  - prompt: "Show me open PRs in this repo that need review"
+    description: List pull requests awaiting review
+  - prompt: "Create an issue titled 'Fix login bug' with a description of the problem"
+    description: Create a new issue
+  - prompt: "Summarize the changes in PR #42"
+    description: Get a summary of a pull request
+  - prompt: "What are the most recent commits on the main branch?"
+    description: View recent commit history
+  - prompt: "Close issue #15 with a comment explaining the fix"
+    description: Close an issue with context

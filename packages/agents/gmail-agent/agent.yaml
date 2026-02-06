@@ -1,0 +1,53 @@
+name: gmail-agent
+version: 1.0.0
+description: "AI email assistant powered by Gmail — compose, search, summarize, and manage your inbox"
+author: "@agentx"
+license: MIT
+category: communication
+tags:
+  - email
+  - gmail
+  - productivity
+  - inbox
+  - compose
+
+requires:
+  claude_cli: ">=1.0.0"
+  node: ">=18.0.0"
+
+mcp_servers:
+  gmail:
+    command: npx
+    args:
+      - "-y"
+      - "@anthropic/mcp-server-gmail"
+    env:
+      GMAIL_TOKEN: "${secrets.GMAIL_TOKEN}"
+
+secrets:
+  - name: GMAIL_TOKEN
+    description: "Gmail OAuth token for API access (see README for setup instructions)"
+    required: true
+
+permissions:
+  network: true
+
+config:
+  - key: max_results
+    description: "Maximum number of emails to return in search results"
+    default: "20"
+  - key: signature
+    description: "Email signature to append to composed emails"
+    default: ""
+
+examples:
+  - prompt: "Show me my unread emails from today"
+    description: Check your latest unread messages
+  - prompt: "Summarize the last 5 emails in my inbox"
+    description: Get a quick overview of recent emails
+  - prompt: "Draft a reply to the latest email from Alice thanking her for the update"
+    description: Compose a reply to a specific sender
+  - prompt: "Search for emails about 'quarterly report' from last month"
+    description: Find specific emails by keyword and date
+  - prompt: "Help me write a professional email to schedule a meeting next Tuesday at 2pm"
+    description: Compose a new email from scratch

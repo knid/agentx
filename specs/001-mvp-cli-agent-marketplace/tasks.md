@@ -262,11 +262,11 @@
 
 **Purpose**: Create the 5 official starter agents for launch
 
-- [ ] T114 [P] Create @agentx/gmail-agent at packages/agents/gmail-agent/ - agent.yaml (Gmail MCP server), system-prompt.md (email assistant), README.md
-- [ ] T115 [P] Create @agentx/github-agent at packages/agents/github-agent/ - agent.yaml (GitHub MCP server), system-prompt.md (PR/issue assistant), README.md
-- [ ] T116 [P] Create @agentx/data-analyst at packages/agents/data-analyst/ - agent.yaml (filesystem MCP), system-prompt.md (CSV/JSON analysis), README.md
-- [ ] T117 [P] Create @agentx/slack-agent at packages/agents/slack-agent/ - agent.yaml (Slack MCP server), system-prompt.md (messaging assistant), README.md
-- [ ] T118 [P] Create @agentx/code-reviewer at packages/agents/code-reviewer/ - agent.yaml (GitHub + filesystem MCP), system-prompt.md (code review), README.md
+- [x] T114 [P] Create @agentx/gmail-agent at packages/agents/gmail-agent/ - agent.yaml (Gmail MCP server), system-prompt.md (email assistant), README.md
+- [x] T115 [P] Create @agentx/github-agent at packages/agents/github-agent/ - agent.yaml (GitHub MCP server), system-prompt.md (PR/issue assistant), README.md
+- [x] T116 [P] Create @agentx/data-analyst at packages/agents/data-analyst/ - agent.yaml (filesystem MCP), system-prompt.md (CSV/JSON analysis), README.md
+- [x] T117 [P] Create @agentx/slack-agent at packages/agents/slack-agent/ - agent.yaml (Slack MCP server), system-prompt.md (messaging assistant), README.md
+- [x] T118 [P] Create @agentx/code-reviewer at packages/agents/code-reviewer/ - agent.yaml (GitHub + filesystem MCP), system-prompt.md (code review), README.md
 
 **Checkpoint**: 5 polished starter agents ready for publish at launch
 

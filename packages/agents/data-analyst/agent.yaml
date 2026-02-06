@@ -1,0 +1,52 @@
+name: data-analyst
+version: 1.0.0
+description: "AI data analysis assistant — analyze CSV, JSON, and other data files with natural language"
+author: "@agentx"
+license: MIT
+category: data
+tags:
+  - data
+  - analytics
+  - csv
+  - json
+  - visualization
+
+requires:
+  claude_cli: ">=1.0.0"
+  node: ">=18.0.0"
+
+mcp_servers:
+  filesystem:
+    command: npx
+    args:
+      - "-y"
+      - "@anthropic/mcp-server-filesystem"
+      - "${secrets.WORK_DIR}"
+
+secrets:
+  - name: WORK_DIR
+    description: "Directory path where your data files are located (e.g., /Users/you/data)"
+    required: true
+
+permissions:
+  filesystem: true
+
+config:
+  - key: max_rows_preview
+    description: "Maximum rows to display in data previews"
+    default: "20"
+  - key: output_format
+    description: "Default output format for analysis results (text or json)"
+    default: "text"
+
+examples:
+  - prompt: "Analyze sales.csv and show me the top 10 products by revenue"
+    description: Analyze a CSV file with ranking
+  - prompt: "What are the trends in monthly_data.json over the last 6 months?"
+    description: Identify trends in time-series data
+  - prompt: "Compare the data in q1.csv and q2.csv — what changed?"
+    description: Compare two data files
+  - prompt: "Find anomalies or outliers in transactions.csv"
+    description: Detect unusual patterns
+  - prompt: "Create a summary report of users.json grouped by country"
+    description: Generate grouped aggregations
