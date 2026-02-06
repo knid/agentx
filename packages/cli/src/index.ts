@@ -17,6 +17,8 @@ import { uninstallCommand } from './commands/uninstall.js';
 import { listCommand } from './commands/list.js';
 import { updateCommand } from './commands/update.js';
 import { infoCommand } from './commands/info.js';
+import { searchCommand } from './commands/search.js';
+import { trendingCommand } from './commands/trending.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -45,5 +47,7 @@ program.addCommand(uninstallCommand);
 program.addCommand(listCommand);
 program.addCommand(updateCommand);
 program.addCommand(infoCommand);
+program.addCommand(searchCommand);
+program.addCommand(trendingCommand);
 
 program.parse();

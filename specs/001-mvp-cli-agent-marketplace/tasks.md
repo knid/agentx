@@ -215,13 +215,13 @@
 
 ### Implementation for User Story 3
 
-- [ ] T089 [US3] Implement GET /api/v1/search route at packages/web/src/app/api/v1/search/route.ts - PostgreSQL full-text search with tsvector/tsquery
-- [ ] T090 [US3] Implement GET /api/v1/trending route at packages/web/src/app/api/v1/trending/route.ts - query agents sorted by download count within period
-- [ ] T091 [US3] Implement GET /api/v1/categories route at packages/web/src/app/api/v1/categories/route.ts - distinct categories with counts
-- [ ] T092 [US3] Implement search client at packages/cli/src/registry/search.ts - searchAgents(query, options), getTrending(period)
-- [ ] T093 [US3] Implement the `search` command at packages/cli/src/commands/search.ts - display results as formatted table with name, description, stars, downloads
-- [ ] T094 [US3] Implement the `trending` command at packages/cli/src/commands/trending.ts - display trending agents
-- [ ] T095 [US3] Wire search and trending commands into packages/cli/src/index.ts
+- [x] T089 [US3] Implement GET /api/v1/search route at packages/web/src/app/api/v1/search/route.ts - PostgreSQL full-text search with tsvector/tsquery
+- [x] T090 [US3] Implement GET /api/v1/trending route at packages/web/src/app/api/v1/trending/route.ts - query agents sorted by download count within period
+- [x] T091 [US3] Implement GET /api/v1/categories route at packages/web/src/app/api/v1/categories/route.ts - distinct categories with counts
+- [x] T092 [US3] Implement search client at packages/cli/src/registry/search.ts - searchAgents(query, options), getTrending(period)
+- [x] T093 [US3] Implement the `search` command at packages/cli/src/commands/search.ts - display results as formatted table with name, description, stars, downloads
+- [x] T094 [US3] Implement the `trending` command at packages/cli/src/commands/trending.ts - display trending agents
+- [x] T095 [US3] Wire search and trending commands into packages/cli/src/index.ts
 
 **Checkpoint**: Users can discover agents via CLI search and trending
 
