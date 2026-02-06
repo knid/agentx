@@ -6,6 +6,7 @@ import { processSystemPrompt } from './prompt-processor.js';
 import { resolveMCPConfig, writeTempMCPConfig } from './mcp-builder.js';
 import { detectPipedInput, readPipedInput, buildPromptWithPipe } from './pipe-handler.js';
 import { formatOutput } from './output-formatter.js';
+import { sendTelemetry } from '../telemetry/reporter.js';
 
 export interface ClaudeArgsOptions {
   prompt?: string;
@@ -81,6 +82,9 @@ export async function runAgent(
     mcpConfigPath = await writeTempMCPConfig(resolved);
   }
 
+  const startTime = Date.now();
+  const agentFullName = `@${manifest.author?.replace(/^@/, '') ?? 'local'}/${manifest.name}`;
+
   try {
     // Build prompt with pipe support
     let finalPrompt = options.prompt ?? '';
@@ -118,6 +122,12 @@ export async function runAgent(
     if (options.interactive) {
       // Interactive mode: inherit stdio
       await execa(claudePath, claudeArgs, { stdio: 'inherit' });
+      sendTelemetry({
+        agent: agentFullName,
+        version: manifest.version,
+        success: true,
+        duration_ms: Date.now() - startTime,
+      });
       return '';
     }
 
@@ -129,7 +139,23 @@ export async function runAgent(
       process.stdout.write(output);
     }
 
+    sendTelemetry({
+      agent: agentFullName,
+      version: manifest.version,
+      success: true,
+      duration_ms: Date.now() - startTime,
+    });
+
     return output;
+  } catch (error) {
+    sendTelemetry({
+      agent: agentFullName,
+      version: manifest.version,
+      success: false,
+      duration_ms: Date.now() - startTime,
+      error_type: error instanceof Error ? error.constructor.name : 'UnknownError',
+    });
+    throw error;
   } finally {
     // Cleanup temp MCP config
     if (mcpConfigPath && existsSync(mcpConfigPath)) {

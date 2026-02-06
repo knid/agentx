@@ -276,9 +276,9 @@
 
 **Purpose**: Anonymous, opt-in usage telemetry
 
-- [ ] T119 [US1] Implement telemetry reporter at packages/cli/src/telemetry/reporter.ts - sendTelemetry(event: TelemetryEvent), respect telemetry config flag, fire-and-forget (no blocking)
-- [ ] T120 [US1] Implement POST /api/v1/telemetry route at packages/web/src/app/api/v1/telemetry/route.ts - insert telemetry event, rate limit
-- [ ] T121 [US1] Integrate telemetry into runner.ts - report success/failure/duration after agent run
+- [x] T119 [US1] Implement telemetry reporter at packages/cli/src/telemetry/reporter.ts - sendTelemetry(event: TelemetryEvent), respect telemetry config flag, fire-and-forget (no blocking)
+- [x] T120 [US1] Implement POST /api/v1/telemetry route at packages/web/src/app/api/v1/telemetry/route.ts - insert telemetry event, rate limit
+- [x] T121 [US1] Integrate telemetry into runner.ts - report success/failure/duration after agent run
 
 ---
 
