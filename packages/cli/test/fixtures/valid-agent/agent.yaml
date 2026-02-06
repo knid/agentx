@@ -1,0 +1,32 @@
+name: test-agent
+version: 1.0.0
+description: A test agent for unit testing
+author: "@testuser"
+license: MIT
+tags:
+  - test
+  - demo
+category: devtools
+mcp_servers:
+  filesystem:
+    command: npx
+    args:
+      - "-y"
+      - "@anthropic/mcp-server-filesystem"
+    env:
+      ALLOWED_DIR: "${secrets.WORK_DIR}"
+secrets:
+  - name: WORK_DIR
+    description: Working directory for filesystem access
+    required: true
+permissions:
+  filesystem: true
+  network: false
+  execute_commands: false
+config:
+  - key: max_files
+    description: Maximum files to process
+    default: "100"
+examples:
+  - prompt: "list all TypeScript files"
+    description: Lists TS files in the workspace

@@ -1,0 +1,28 @@
+# Node.js
+node_modules/
+dist/
+build/
+*.log
+.env*
+
+# Next.js
+.next/
+out/
+
+# TypeScript
+*.tsbuildinfo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Coverage
+coverage/
+
+# Temp
+*.tmp
+*.swp

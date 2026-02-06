@@ -17,19 +17,19 @@
 
 **Purpose**: Project initialization, monorepo setup, and shared configuration
 
-- [ ] T001 Create monorepo root with npm workspaces config in package.json (workspaces: ["packages/*"])
-- [ ] T002 Create shared TypeScript config in tsconfig.base.json with strict mode, ES2022 target, Node module resolution
-- [ ] T003 [P] Create packages/cli/ directory with package.json (name: "agentx", bin: {"agentx": "./dist/index.js"}, dependencies: commander, execa, clack, zod, yaml, ofetch, devDependencies: tsup, vitest, typescript)
-- [ ] T004 [P] Create packages/web/ directory with Next.js 15 app router setup (npx create-next-app@latest with TypeScript, Tailwind, App Router)
-- [ ] T005 [P] Create packages/agents/ directory with package.json for official starter agents
-- [ ] T006 Create packages/cli/tsconfig.json extending tsconfig.base.json
-- [ ] T007 Create packages/cli/tsup.config.ts with entry: src/index.ts, format: esm, target: node18, dts: true, shims: true
-- [ ] T008 Create packages/cli/vitest.config.ts with test include patterns and coverage settings
-- [ ] T009 [P] Create .github/workflows/ci.yml with lint + test + build on PR
-- [ ] T010 [P] Create .github/workflows/release.yml with npm publish on v* tag push
-- [ ] T011 [P] Create root .eslintrc.js and .prettierrc for consistent formatting
-- [ ] T012 Create root LICENSE file (MIT)
-- [ ] T013 Create root README.md with project overview, install instructions, and badges
+- [x] T001 Create monorepo root with npm workspaces config in package.json (workspaces: ["packages/*"])
+- [x] T002 Create shared TypeScript config in tsconfig.base.json with strict mode, ES2022 target, Node module resolution
+- [x] T003 [P] Create packages/cli/ directory with package.json (name: "agentx", bin: {"agentx": "./dist/index.js"}, dependencies: commander, execa, clack, zod, yaml, ofetch, devDependencies: tsup, vitest, typescript)
+- [x] T004 [P] Create packages/web/ directory with Next.js 15 app router setup (npx create-next-app@latest with TypeScript, Tailwind, App Router)
+- [x] T005 [P] Create packages/agents/ directory with package.json for official starter agents
+- [x] T006 Create packages/cli/tsconfig.json extending tsconfig.base.json
+- [x] T007 Create packages/cli/tsup.config.ts with entry: src/index.ts, format: esm, target: node18, dts: true, shims: true
+- [x] T008 Create packages/cli/vitest.config.ts with test include patterns and coverage settings
+- [x] T009 [P] Create .github/workflows/ci.yml with lint + test + build on PR
+- [x] T010 [P] Create .github/workflows/release.yml with npm publish on v* tag push
+- [x] T011 [P] Create root .eslintrc.js and .prettierrc for consistent formatting
+- [x] T012 Create root LICENSE file (MIT)
+- [x] T013 Create root README.md with project overview, install instructions, and badges
 
 ---
 
@@ -37,20 +37,20 @@
 
 **Purpose**: Core infrastructure that MUST be complete before ANY user story can be implemented
 
-- [ ] T014 Create CLI entry point at packages/cli/src/index.ts with Commander program setup (name: "agentx", description, version from package.json)
-- [ ] T015 Create path constants at packages/cli/src/config/paths.ts defining AGENTX_HOME (~/.agentx), AGENTS_DIR, SECRETS_DIR, CONFIG_PATH, AUTH_PATH, CACHE_DIR, LOGS_DIR
-- [ ] T016 Create directory initialization utility at packages/cli/src/utils/init-dirs.ts to create ~/.agentx/ structure on first use
-- [ ] T017 Create custom error classes at packages/cli/src/utils/errors.ts (AgentNotFoundError, ConfigError, AuthError, RegistryError, ValidationError)
-- [ ] T018 [P] Create color and formatting utilities at packages/cli/src/ui/colors.ts with --no-color support via chalk
-- [ ] T019 [P] Create spinner utility at packages/cli/src/ui/spinner.ts wrapping clack spinner
-- [ ] T020 [P] Create table formatting utility at packages/cli/src/ui/table.ts for agent lists and search results
-- [ ] T021 Create Zod schema for agent.yaml at packages/cli/src/schemas/agent-yaml.ts with all required and optional fields per data-model.md validation rules
-- [ ] T022 Create Zod schema for global config at packages/cli/src/schemas/config.ts
-- [ ] T023 Create TypeScript type definitions at packages/cli/src/types/agent.ts (AgentManifest, AgentConfig, MCPServerConfig, SecretDeclaration, Permission)
-- [ ] T024 [P] Create TypeScript type definitions at packages/cli/src/types/registry.ts (SearchResult, AgentInfo, PublishResponse, AuthResponse)
-- [ ] T025 [P] Create TypeScript type definitions at packages/cli/src/types/config.ts (GlobalConfig, AuthToken, SecretStore)
-- [ ] T026 Create global config manager at packages/cli/src/config/global-config.ts (load, save, get, set for ~/.agentx/config.yaml)
-- [ ] T027 Create agent config manager at packages/cli/src/config/agent-config.ts (loadAgentYaml, loadSystemPrompt, getAgentDir)
+- [x] T014 Create CLI entry point at packages/cli/src/index.ts with Commander program setup (name: "agentx", description, version from package.json)
+- [x] T015 Create path constants at packages/cli/src/config/paths.ts defining AGENTX_HOME (~/.agentx), AGENTS_DIR, SECRETS_DIR, CONFIG_PATH, AUTH_PATH, CACHE_DIR, LOGS_DIR
+- [x] T016 Create directory initialization utility at packages/cli/src/utils/init-dirs.ts to create ~/.agentx/ structure on first use
+- [x] T017 Create custom error classes at packages/cli/src/utils/errors.ts (AgentNotFoundError, ConfigError, AuthError, RegistryError, ValidationError)
+- [x] T018 [P] Create color and formatting utilities at packages/cli/src/ui/colors.ts with --no-color support via chalk
+- [x] T019 [P] Create spinner utility at packages/cli/src/ui/spinner.ts wrapping clack spinner
+- [x] T020 [P] Create table formatting utility at packages/cli/src/ui/table.ts for agent lists and search results
+- [x] T021 Create Zod schema for agent.yaml at packages/cli/src/schemas/agent-yaml.ts with all required and optional fields per data-model.md validation rules
+- [x] T022 Create Zod schema for global config at packages/cli/src/schemas/config.ts
+- [x] T023 Create TypeScript type definitions at packages/cli/src/types/agent.ts (AgentManifest, AgentConfig, MCPServerConfig, SecretDeclaration, Permission)
+- [x] T024 [P] Create TypeScript type definitions at packages/cli/src/types/registry.ts (SearchResult, AgentInfo, PublishResponse, AuthResponse)
+- [x] T025 [P] Create TypeScript type definitions at packages/cli/src/types/config.ts (GlobalConfig, AuthToken, SecretStore)
+- [x] T026 Create global config manager at packages/cli/src/config/global-config.ts (load, save, get, set for ~/.agentx/config.yaml)
+- [x] T027 Create agent config manager at packages/cli/src/config/agent-config.ts (loadAgentYaml, loadSystemPrompt, getAgentDir)
 
 **Checkpoint**: Foundation ready - user story implementation can now begin
 
@@ -66,22 +66,22 @@
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T028 [P] [US1] Unit test for prompt processor at packages/cli/test/runtime/prompt-processor.test.ts - test {{config.key}} replacement, missing variable handling, multiple variables
-- [ ] T029 [P] [US1] Unit test for MCP config builder at packages/cli/test/runtime/mcp-builder.test.ts - test secret resolution (${secrets.KEY}), empty servers, nested env vars
-- [ ] T030 [P] [US1] Unit test for pipe handler at packages/cli/test/runtime/pipe-handler.test.ts - test stdin detection, content prepending to prompt
-- [ ] T031 [P] [US1] Unit test for runner at packages/cli/test/runtime/runner.test.ts - test claude CLI spawning with correct args, error handling, cleanup
-- [ ] T032 [P] [US1] Create test fixtures at packages/cli/test/fixtures/valid-agent/ with agent.yaml and system-prompt.md
-- [ ] T033 [P] [US1] Create test fixtures at packages/cli/test/fixtures/invalid-agent/ with malformed agent.yaml
+- [x] T028 [P] [US1] Unit test for prompt processor at packages/cli/test/runtime/prompt-processor.test.ts - test {{config.key}} replacement, missing variable handling, multiple variables
+- [x] T029 [P] [US1] Unit test for MCP config builder at packages/cli/test/runtime/mcp-builder.test.ts - test secret resolution (${secrets.KEY}), empty servers, nested env vars
+- [x] T030 [P] [US1] Unit test for pipe handler at packages/cli/test/runtime/pipe-handler.test.ts - test stdin detection, content prepending to prompt
+- [x] T031 [P] [US1] Unit test for runner at packages/cli/test/runtime/runner.test.ts - test claude CLI spawning with correct args, error handling, cleanup
+- [x] T032 [P] [US1] Create test fixtures at packages/cli/test/fixtures/valid-agent/ with agent.yaml and system-prompt.md
+- [x] T033 [P] [US1] Create test fixtures at packages/cli/test/fixtures/invalid-agent/ with malformed agent.yaml
 
 ### Implementation for User Story 1
 
-- [ ] T034 [US1] Implement prompt processor at packages/cli/src/runtime/prompt-processor.ts - loadAndProcessSystemPrompt(agentDir, agentYaml, configOverrides) replacing {{config.key}} with values or defaults
-- [ ] T035 [US1] Implement MCP config builder at packages/cli/src/runtime/mcp-builder.ts - resolveMCPConfig(servers, secrets) resolving ${secrets.KEY} references, writeTempMCPConfig(config) returning temp file path
-- [ ] T036 [US1] Implement pipe handler at packages/cli/src/runtime/pipe-handler.ts - detectPipedInput() and buildPromptWithPipe(prompt, pipedContent)
-- [ ] T037 [US1] Implement output formatter at packages/cli/src/runtime/output-formatter.ts - formatOutput(data, format: text|json)
-- [ ] T038 [US1] Implement core runner at packages/cli/src/runtime/runner.ts - runAgent(agentName, options: RunOptions) orchestrating: load agent -> decrypt secrets -> build MCP config -> build prompt -> spawn claude -> stream output -> cleanup
-- [ ] T039 [US1] Implement the `run` command at packages/cli/src/commands/run.ts - register with Commander, parse flags (-i, --file, --json, --quiet, --debug, --output-format), call runner
-- [ ] T040 [US1] Wire run command into packages/cli/src/index.ts
+- [x] T034 [US1] Implement prompt processor at packages/cli/src/runtime/prompt-processor.ts - loadAndProcessSystemPrompt(agentDir, agentYaml, configOverrides) replacing {{config.key}} with values or defaults
+- [x] T035 [US1] Implement MCP config builder at packages/cli/src/runtime/mcp-builder.ts - resolveMCPConfig(servers, secrets) resolving ${secrets.KEY} references, writeTempMCPConfig(config) returning temp file path
+- [x] T036 [US1] Implement pipe handler at packages/cli/src/runtime/pipe-handler.ts - detectPipedInput() and buildPromptWithPipe(prompt, pipedContent)
+- [x] T037 [US1] Implement output formatter at packages/cli/src/runtime/output-formatter.ts - formatOutput(data, format: text|json)
+- [x] T038 [US1] Implement core runner at packages/cli/src/runtime/runner.ts - runAgent(agentName, options: RunOptions) orchestrating: load agent -> decrypt secrets -> build MCP config -> build prompt -> spawn claude -> stream output -> cleanup
+- [x] T039 [US1] Implement the `run` command at packages/cli/src/commands/run.ts - register with Commander, parse flags (-i, --file, --json, --quiet, --debug, --output-format), call runner
+- [x] T040 [US1] Wire run command into packages/cli/src/index.ts
 
 **Checkpoint**: User Story 1 fully functional - `agentx run <agent> "prompt"` works with local agents
 
@@ -97,8 +97,8 @@
 
 ### Tests for User Story 7
 
-- [ ] T041 [P] [US7] Unit test for encryption at packages/cli/test/secrets/encrypt.test.ts - test encrypt/decrypt roundtrip, key derivation, tamper detection
-- [ ] T042 [P] [US7] Unit test for secret store at packages/cli/test/secrets/store.test.ts - test save/load/delete, missing file handling
+- [x] T041 [P] [US7] Unit test for encryption at packages/cli/test/secrets/encrypt.test.ts - test encrypt/decrypt roundtrip, key derivation, tamper detection
+- [x] T042 [P] [US7] Unit test for secret store at packages/cli/test/secrets/store.test.ts - test save/load/delete, missing file handling
 
 ### Implementation for User Story 7
 
@@ -120,8 +120,8 @@
 
 ### Tests for User Story 5
 
-- [ ] T048 [P] [US5] Unit test for agent.yaml validation at packages/cli/test/schemas/agent-yaml.test.ts - test valid schema, missing fields, invalid semver, invalid category
-- [ ] T049 [P] [US5] Unit test for doctor command at packages/cli/test/commands/doctor.test.ts - test claude detection, node version check
+- [x] T048 [P] [US5] Unit test for agent.yaml validation at packages/cli/test/schemas/agent-yaml.test.ts - test valid schema, missing fields, invalid semver, invalid category
+- [x] T049 [P] [US5] Unit test for doctor command at packages/cli/test/commands/doctor.test.ts - test claude detection, node version check
 
 ### Implementation for User Story 5
 

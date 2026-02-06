@@ -1,0 +1,6 @@
+{
+  "name": "@agentx/web",
+  "version": "0.1.0",
+  "private": true,
+  "description": "agentx.dev - Agent registry and marketplace website"
+}
