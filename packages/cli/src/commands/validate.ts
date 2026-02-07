@@ -57,6 +57,10 @@ export function validateAgentDir(agentDir: string): ValidationResult {
 export const validateCommand = new Command('validate')
   .description('Validate an agent project')
   .argument('[directory]', 'Agent directory to validate', '.')
+  .addHelpText('after', `
+Examples:
+  $ agentx validate
+  $ agentx validate ./my-agent`)
   .action(async (directory: string) => {
     const agentDir = resolve(directory);
     const result = validateAgentDir(agentDir);

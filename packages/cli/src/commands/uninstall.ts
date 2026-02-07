@@ -9,6 +9,10 @@ export const uninstallCommand = new Command('uninstall')
   .description('Uninstall an agent')
   .argument('<agent>', 'Agent name to uninstall')
   .option('--keep-secrets', 'Keep secrets (do not delete encrypted secrets)')
+  .addHelpText('after', `
+Examples:
+  $ agentx uninstall data-analyst
+  $ agentx uninstall gmail-agent --keep-secrets`)
   .action(async (agentName: string, options: { keepSecrets?: boolean }) => {
     try {
       const agentDir = join(AGENTS_DIR, agentName);

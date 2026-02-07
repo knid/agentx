@@ -10,6 +10,11 @@ export const searchCommand = new Command('search')
   .option('-c, --category <category>', 'Filter by category')
   .option('-s, --sort <sort>', 'Sort order: downloads, stars, newest', 'downloads')
   .option('--json', 'Output as JSON')
+  .addHelpText('after', `
+Examples:
+  $ agentx search "data analysis"
+  $ agentx search email --category productivity
+  $ agentx search code --sort stars --limit 10`)
   .action(
     async (
       query: string,

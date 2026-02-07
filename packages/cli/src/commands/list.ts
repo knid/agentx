@@ -10,6 +10,10 @@ export const listCommand = new Command('list')
   .alias('ls')
   .description('List installed agents')
   .option('--json', 'Output as JSON')
+  .addHelpText('after', `
+Examples:
+  $ agentx list
+  $ agentx ls --json`)
   .action((options: { json?: boolean }) => {
     try {
       if (!existsSync(AGENTS_DIR)) {

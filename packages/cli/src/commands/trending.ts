@@ -8,6 +8,11 @@ export const trendingCommand = new Command('trending')
   .option('-p, --period <period>', 'Time period: day, week, month', 'week')
   .option('-l, --limit <n>', 'Maximum results to display', '20')
   .option('--json', 'Output as JSON')
+  .addHelpText('after', `
+Examples:
+  $ agentx trending
+  $ agentx trending --period month
+  $ agentx trending --period day --limit 5`)
   .action(
     async (options: { period: string; limit: string; json?: boolean }) => {
       try {

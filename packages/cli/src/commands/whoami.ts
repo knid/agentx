@@ -4,6 +4,9 @@ import { colors } from '../ui/colors.js';
 
 export const whoamiCommand = new Command('whoami')
   .description('Display the currently authenticated user')
+  .addHelpText('after', `
+Examples:
+  $ agentx whoami`)
   .action(() => {
     try {
       const token = loadToken();

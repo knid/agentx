@@ -7,6 +7,9 @@ import { colors } from '../ui/colors.js';
 
 export const loginCommand = new Command('login')
   .description('Authenticate with the agentx registry via GitHub')
+  .addHelpText('after', `
+Examples:
+  $ agentx login`)
   .action(async () => {
     try {
       // Check if already logged in.

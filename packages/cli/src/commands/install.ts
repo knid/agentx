@@ -48,6 +48,11 @@ export const installCommand = new Command('install')
   .description('Install an agent from the registry')
   .argument('<agent>', 'Agent to install (e.g. @scope/name or @scope/name@version)')
   .option('-f, --force', 'Force reinstall even if already installed')
+  .addHelpText('after', `
+Examples:
+  $ agentx install @agentx/data-analyst
+  $ agentx install @agentx/gmail-agent@1.2.0
+  $ agentx install @agentx/code-reviewer --force`)
   .action(async (agentSpec: string, options: { force?: boolean }) => {
     try {
       const { scope, name, version } = parseAgentSpecifier(agentSpec);

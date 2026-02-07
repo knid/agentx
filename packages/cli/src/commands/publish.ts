@@ -11,6 +11,10 @@ import { colors } from '../ui/colors.js';
 export const publishCommand = new Command('publish')
   .description('Publish an agent to the agentx registry')
   .argument('[directory]', 'Agent directory to publish', '.')
+  .addHelpText('after', `
+Examples:
+  $ agentx publish
+  $ agentx publish ./my-agent`)
   .action(async (directory: string) => {
     try {
       const agentDir = resolve(directory);

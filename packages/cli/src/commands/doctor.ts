@@ -1,6 +1,6 @@
 import { Command } from 'commander';
 import { execa } from 'execa';
-import { readFileSync } from 'node:fs';
+import { readFileSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { colors } from '../ui/colors.js';
@@ -63,10 +63,18 @@ export function checkNodeVersion(): NodeVersionCheck {
 }
 
 export function checkAgentxVersion(): AgentxVersionCheck {
-  const pkg = JSON.parse(
-    readFileSync(join(__dirname, '..', '..', 'package.json'), 'utf-8'),
-  );
-  return { version: pkg.version };
+  // Try multiple paths to handle both source (src/commands/) and bundled (dist/) layouts
+  const candidates = [
+    join(__dirname, '..', '..', 'package.json'),
+    join(__dirname, '..', 'package.json'),
+  ];
+  for (const candidate of candidates) {
+    if (existsSync(candidate)) {
+      const pkg = JSON.parse(readFileSync(candidate, 'utf-8'));
+      return { version: pkg.version };
+    }
+  }
+  return { version: 'unknown' };
 }
 
 export async function runDoctor(): Promise<DoctorCheckResult[]> {
@@ -102,6 +110,9 @@ export async function runDoctor(): Promise<DoctorCheckResult[]> {
 
 export const doctorCommand = new Command('doctor')
   .description('Check system requirements and configuration')
+  .addHelpText('after', `
+Examples:
+  $ agentx doctor`)
   .action(async () => {
     const results = await runDoctor();
     const allPassed = results.every((r) => r.pass);

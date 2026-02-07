@@ -286,20 +286,20 @@
 
 **Purpose**: Improvements that affect multiple user stories
 
-- [ ] T122 [P] Create comprehensive root README.md with install instructions, feature overview, demo GIF placeholder, badges
-- [ ] T123 [P] Create CONTRIBUTING.md with development setup, testing, PR guidelines
-- [ ] T124 Implement `agentx config` command at packages/cli/src/commands/config.ts for managing global config
-- [ ] T125 Wire config command into packages/cli/src/index.ts
-- [ ] T126 Add --help text to all CLI commands with examples
-- [ ] T127 Add --version flag reading from package.json
-- [ ] T128 [P] Implement --verbose and --debug flags as global options in packages/cli/src/index.ts
-- [ ] T129 End-to-end test: install -> configure -> run -> uninstall lifecycle
-- [ ] T130 Security audit: verify secret encryption, temp file cleanup, permission warnings
-- [ ] T131 Performance profiling: measure install time, run startup time, search latency
-- [ ] T132 Run quickstart.md validation - follow all steps and verify they work
-- [ ] T133 Prepare npm publish configuration in packages/cli/package.json (files, bin, repository, keywords)
-- [ ] T134 Verify Vercel deployment of packages/web/ with all environment variables
-- [ ] T135 Publish 5 starter agents to the live registry
+- [x] T122 [P] Create comprehensive root README.md with install instructions, feature overview, demo GIF placeholder, badges
+- [x] T123 [P] Create CONTRIBUTING.md with development setup, testing, PR guidelines
+- [x] T124 Implement `agentx config` command at packages/cli/src/commands/config.ts for managing global config
+- [x] T125 Wire config command into packages/cli/src/index.ts
+- [x] T126 Add --help text to all CLI commands with examples
+- [x] T127 Add --version flag reading from package.json
+- [x] T128 [P] Implement --verbose and --debug flags as global options in packages/cli/src/index.ts
+- [x] T129 End-to-end test: install -> configure -> run -> uninstall lifecycle
+- [x] T130 Security audit: verify secret encryption, temp file cleanup, permission warnings
+- [x] T131 Performance profiling: measure install time, run startup time, search latency
+- [x] T132 Run quickstart.md validation - follow all steps and verify they work
+- [x] T133 Prepare npm publish configuration in packages/cli/package.json (files, bin, repository, keywords)
+- [x] T134 Verify Vercel deployment of packages/web/ with all environment variables
+- [x] T135 Publish 5 starter agents to the live registry
 
 ---
 

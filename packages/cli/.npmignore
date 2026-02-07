@@ -1,0 +1,9 @@
+src/
+test/
+tsconfig.json
+tsup.config.ts
+vitest.config.ts
+coverage/
+*.tsbuildinfo
+.DS_Store
+SECURITY-AUDIT.md

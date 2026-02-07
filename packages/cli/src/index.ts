@@ -19,18 +19,31 @@ import { updateCommand } from './commands/update.js';
 import { infoCommand } from './commands/info.js';
 import { searchCommand } from './commands/search.js';
 import { trendingCommand } from './commands/trending.js';
+import { configCommand } from './commands/config.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const pkg = JSON.parse(readFileSync(join(__dirname, '..', 'package.json'), 'utf-8'));
 
-const program = new Command();
+export const program = new Command();
 
 program
   .name('agentx')
   .description('The package manager for AI agents powered by Claude Code')
-  .version(pkg.version);
+  .version(pkg.version)
+  .option('--verbose', 'Show verbose output')
+  .option('--debug', 'Show debug output including stack traces')
+  .hook('preAction', (_thisCommand, actionCommand) => {
+    const opts = program.opts();
+    if (opts.verbose) {
+      process.env.AGENTX_VERBOSE = '1';
+    }
+    if (opts.debug) {
+      process.env.AGENTX_DEBUG = '1';
+      process.env.AGENTX_VERBOSE = '1';
+    }
+  });
 
 program.addCommand(runCommand);
 program.addCommand(configureCommand);
@@ -49,5 +62,6 @@ program.addCommand(updateCommand);
 program.addCommand(infoCommand);
 program.addCommand(searchCommand);
 program.addCommand(trendingCommand);
+program.addCommand(configCommand);
 
 program.parse();

@@ -12,6 +12,10 @@ export const updateCommand = new Command('update')
   .description('Update installed agents to the latest version')
   .argument('[agent]', 'Specific agent to update')
   .option('--all', 'Update all installed agents')
+  .addHelpText('after', `
+Examples:
+  $ agentx update data-analyst
+  $ agentx update --all`)
   .action(async (agentName?: string, options?: { all?: boolean }) => {
     try {
       if (!agentName && !options?.all) {

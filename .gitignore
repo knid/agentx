@@ -4,6 +4,7 @@ dist/
 build/
 *.log
 .env*
+!.env.example
 
 # Next.js
 .next/

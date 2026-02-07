@@ -6,6 +6,10 @@ import { colors } from '../ui/colors.js';
 export const configureCommand = new Command('configure')
   .description('Configure secrets for an agent')
   .argument('<agent>', 'Agent name or path')
+  .addHelpText('after', `
+Examples:
+  $ agentx configure gmail-agent
+  $ agentx configure ./my-agent`)
   .action(async (agent: string) => {
     try {
       const agentDir = getAgentDir(agent);

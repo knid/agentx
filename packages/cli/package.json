@@ -21,7 +21,8 @@
     "test:coverage": "vitest run --coverage",
     "lint": "eslint src/ --ext .ts",
     "clean": "rm -rf dist",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "commander": "^12.0.0",
@@ -44,12 +45,25 @@
     "ai",
     "agents",
     "claude",
+    "claude-code",
     "mcp",
-    "cli"
+    "model-context-protocol",
+    "cli",
+    "package-manager",
+    "agent-marketplace",
+    "llm"
   ],
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/agentx-dev/agentx"
+  },
+  "homepage": "https://agentx.dev",
+  "bugs": {
+    "url": "https://github.com/agentx-dev/agentx/issues"
+  },
+  "author": "agentx-dev",
+  "engines": {
+    "node": ">=18"
   }
 }

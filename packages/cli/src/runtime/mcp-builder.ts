@@ -1,4 +1,4 @@
-import { writeFileSync, mkdirSync } from 'node:fs';
+import { writeFileSync, mkdirSync, chmodSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { randomUUID } from 'node:crypto';
@@ -50,5 +50,6 @@ export async function writeTempMCPConfig(
   const config = { mcpServers: servers };
 
   writeFileSync(configPath, JSON.stringify(config, null, 2), 'utf-8');
+  chmodSync(configPath, 0o600);
   return configPath;
 }

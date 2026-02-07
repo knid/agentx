@@ -31,6 +31,10 @@ async function checkMCPServerStartability(
 export const testCommand = new Command('test')
   .description('Validate and test an agent project')
   .argument('[directory]', 'Agent directory to test', '.')
+  .addHelpText('after', `
+Examples:
+  $ agentx test
+  $ agentx test ./my-agent`)
   .action(async (directory: string) => {
     const agentDir = resolve(directory);
 

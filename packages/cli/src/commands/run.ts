@@ -12,6 +12,12 @@ export const runCommand = new Command('run')
   .option('--quiet', 'Suppress output (useful for scripting)')
   .option('--debug', 'Show debug information')
   .option('--output-format <format>', 'Output format: text or json', 'text')
+  .addHelpText('after', `
+Examples:
+  $ agentx run data-analyst "summarize this data" --file data.csv
+  $ agentx run . "test prompt"
+  $ cat report.csv | agentx run data-analyst "find anomalies"
+  $ agentx run gmail-agent -i`)
   .action(async (agent: string, promptParts: string[], options) => {
     try {
       const prompt = promptParts.join(' ');

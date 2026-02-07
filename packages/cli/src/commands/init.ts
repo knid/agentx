@@ -29,6 +29,10 @@ function replaceTemplateVars(content: string, vars: Record<string, string>): str
 export const initCommand = new Command('init')
   .description('Scaffold a new agent project')
   .argument('[directory]', 'Directory to create the agent in', '.')
+  .addHelpText('after', `
+Examples:
+  $ agentx init
+  $ agentx init ./my-agent`)
   .action(async (directory: string) => {
     try {
       p.intro('Create a new agentx agent');

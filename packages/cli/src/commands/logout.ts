@@ -4,6 +4,9 @@ import { colors } from '../ui/colors.js';
 
 export const logoutCommand = new Command('logout')
   .description('Log out of the agentx registry')
+  .addHelpText('after', `
+Examples:
+  $ agentx logout`)
   .action(() => {
     try {
       if (!isAuthenticated()) {

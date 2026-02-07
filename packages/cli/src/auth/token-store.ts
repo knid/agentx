@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync, unlinkSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, unlinkSync, existsSync, chmodSync } from 'node:fs';
 import { AUTH_PATH } from '../config/paths.js';
 import { ensureDirectories } from '../utils/init-dirs.js';
 import type { AuthToken } from '../types/config.js';
@@ -13,6 +13,7 @@ import type { AuthToken } from '../types/config.js';
 export function saveToken(token: AuthToken): void {
   ensureDirectories();
   writeFileSync(AUTH_PATH, JSON.stringify(token, null, 2), 'utf-8');
+  chmodSync(AUTH_PATH, 0o600);
 }
 
 /**

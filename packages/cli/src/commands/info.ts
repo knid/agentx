@@ -20,6 +20,10 @@ export const infoCommand = new Command('info')
   .description('Display agent details from the registry')
   .argument('<agent>', 'Agent to look up (e.g. @scope/name)')
   .option('--json', 'Output as JSON')
+  .addHelpText('after', `
+Examples:
+  $ agentx info @agentx/data-analyst
+  $ agentx info @agentx/gmail-agent --json`)
   .action(async (agentSpec: string, options: { json?: boolean }) => {
     try {
       const { scope, name } = parseInfoSpecifier(agentSpec);
