@@ -131,13 +131,8 @@ export async function runAgent(
       return '';
     }
 
-    // Non-interactive mode: capture output
-    const result = await execa(claudePath, claudeArgs);
-    const output = formatOutput(result.stdout, options.outputFormat ?? 'text');
-
-    if (!options.quiet) {
-      process.stdout.write(output);
-    }
+    // Non-interactive mode: inherit stdio so Claude can prompt for permissions
+    await execa(claudePath, claudeArgs, { stdio: 'inherit' });
 
     sendTelemetry({
       agent: agentFullName,
@@ -146,7 +141,7 @@ export async function runAgent(
       duration_ms: Date.now() - startTime,
     });
 
-    return output;
+    return '';
   } catch (error) {
     sendTelemetry({
       agent: agentFullName,
