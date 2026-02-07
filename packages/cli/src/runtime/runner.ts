@@ -5,7 +5,7 @@ import { loadGlobalConfig } from '../config/global-config.js';
 import { processSystemPrompt } from './prompt-processor.js';
 import { resolveMCPConfig, writeTempMCPConfig } from './mcp-builder.js';
 import { detectPipedInput, readPipedInput, buildPromptWithPipe } from './pipe-handler.js';
-import { formatOutput } from './output-formatter.js';
+import { printRunHeader, printRunOutput, printRunFooter } from './output-formatter.js';
 import { sendTelemetry } from '../telemetry/reporter.js';
 import { loadSecrets } from '../secrets/store.js';
 
@@ -137,8 +137,31 @@ export async function runAgent(
       return '';
     }
 
-    // Non-interactive mode: inherit stdio so Claude can prompt for permissions
-    await execa(claudePath, claudeArgs, { stdio: 'inherit' });
+    // Non-interactive mode: capture stdout, render beautifully
+    const outputFormat = options.outputFormat ?? 'text';
+
+    if (!options.quiet) {
+      printRunHeader({
+        agentName: agentFullName,
+        version: manifest.version,
+      });
+    }
+
+    const result = await execa(claudePath, claudeArgs, {
+      stdout: 'pipe',
+      stderr: 'inherit',
+      stdin: 'inherit',
+    });
+
+    const rawOutput = result.stdout ?? '';
+
+    if (!options.quiet) {
+      printRunOutput(rawOutput, { format: outputFormat as 'text' | 'json' });
+      printRunFooter({ durationMs: Date.now() - startTime });
+    } else if (rawOutput) {
+      // In quiet mode, still print the raw output without decoration
+      console.log(rawOutput);
+    }
 
     sendTelemetry({
       agent: agentFullName,
@@ -147,7 +170,7 @@ export async function runAgent(
       duration_ms: Date.now() - startTime,
     });
 
-    return '';
+    return rawOutput;
   } catch (error) {
     sendTelemetry({
       agent: agentFullName,
