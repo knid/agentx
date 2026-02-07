@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  The package manager for AI agents powered by Claude Code.
+  Install, chain, and orchestrate AI agents from the terminal.
 </p>
 
 <p align="center">
@@ -14,21 +14,21 @@
 
 ---
 
-**agentx** lets you discover, install, run, and publish AI agent packages from the terminal. Agents are reusable configurations for [Claude Code](https://docs.anthropic.com/en/docs/claude-code) that bundle system prompts, MCP server definitions, and secrets into shareable packages.
+**agentx** lets you discover, install, chain, and orchestrate AI agents from the terminal. Pipe one agent's output into another with standard Unix pipes — research, analyze, write, and ship in a single command. Agents are reusable packages for [Claude Code](https://docs.anthropic.com/en/docs/claude-code) that bundle system prompts, MCP servers, and secrets.
 
 <!-- TODO: Replace with actual demo GIF -->
 <!-- ![agentx demo](./docs/assets/demo.gif) -->
 
 ## Features
 
+- **Chain agents with pipes** - `agentx run agent-a --quiet | agentx run agent-b "use this"`
 - **Run agents** - Execute agents locally with `agentx run <agent> "prompt"`
 - **Install from registry** - One command install: `agentx install @scope/agent`
+- **Schedule agents** - Cron-based scheduling: `agentx schedule start <agent>`
 - **Search & discover** - Find agents via CLI or browse [agentx.dev](https://agentx.dev)
 - **Publish agents** - Share your agents with `agentx publish`
 - **Scaffold agents** - Create new agents with `agentx init`
 - **Encrypted secrets** - AES-256-GCM encrypted secrets per agent
-- **Schedule agents** - Cron-based scheduling: `agentx schedule start <agent>`
-- **Pipe & chain agents** - `agentx run agent-a | agentx run agent-b "use this"`
 - **MCP integration** - Agents declare MCP servers for tool access
 
 ## Prerequisites
@@ -60,8 +60,9 @@ agentx install @agentx/data-analyst
 # Run it
 agentx run data-analyst "analyze trends in this data" --file sales.csv
 
-# Pipe data in
-cat report.csv | agentx run data-analyst "find anomalies"
+# Chain agents — research, then write
+agentx run web-researcher --quiet "2026 AI trends" \
+  | agentx run writing-assistant "turn this into a blog post"
 
 # Interactive mode
 agentx run data-analyst -i
@@ -141,6 +142,35 @@ schedule:
     prompt: "Generate the daily report"
 ```
 
+## Agent Chaining
+
+Agents write to stdout, so you can chain them with standard Unix pipes. The output of one agent becomes the input context for the next — build multi-step AI workflows in a single line:
+
+```bash
+# Research a topic, then create a Notion page from the results
+agentx run web-researcher --quiet "2026 AI trends" \
+  | agentx run notion-agent "create a new page summarizing this research"
+
+# Scan for vulnerabilities, then create a Linear issue for each finding
+agentx run security-scanner --quiet "audit src/auth/ for vulnerabilities" \
+  | agentx run linear-agent "create a bug for each critical finding"
+
+# Analyze data, then draft a report
+agentx run data-analyst --quiet "summarize quarterly revenue" --file q4.csv \
+  | agentx run writing-assistant "turn this into an executive summary"
+
+# Review code, then send the review to Slack
+agentx run code-reviewer --quiet "review the latest changes in src/api/" \
+  | agentx run slack-agent "post this code review summary to #engineering"
+
+# Three-step pipeline: research → rewrite → post
+agentx run web-researcher --quiet "latest React best practices 2026" \
+  | agentx run writing-assistant --quiet "rewrite as a concise team guide" \
+  | agentx run slack-agent "post this to #frontend"
+```
+
+Use `--quiet` on intermediate agents to suppress headers/footers and pipe only the raw output. The last agent in the chain can run without `--quiet` to display formatted output.
+
 ## Scheduling
 
 Agents can declare cron-based schedules in `agent.yaml`. A shared background daemon runs on your machine and executes agents at the specified times.
@@ -166,30 +196,6 @@ agentx schedule resume
 ```
 
 The daemon automatically retries failed runs (up to 2 retries with backoff), rotates logs (keeps last 50 per agent), and cleans up when all schedules are stopped.
-
-## Agent Piping
-
-Agents write to stdout, so you can chain them with Unix pipes. The output of one agent becomes the input context for the next:
-
-```bash
-# Research a topic, then create a Notion page from the results
-agentx run web-researcher --quiet "2026 AI trends" \
-  | agentx run notion-agent "create a new page summarizing this research"
-
-# Scan for vulnerabilities, then create a Linear issue for each finding
-agentx run security-scanner --quiet "audit src/auth/ for vulnerabilities" \
-  | agentx run linear-agent "create a bug for each critical finding"
-
-# Analyze data, then draft a report
-agentx run data-analyst --quiet "summarize quarterly revenue" --file q4.csv \
-  | agentx run writing-assistant "turn this into an executive summary"
-
-# Review code, then send the review to Slack
-agentx run code-reviewer --quiet "review the latest changes in src/api/" \
-  | agentx run slack-agent "post this code review summary to #engineering"
-```
-
-Use `--quiet` on the first agent to suppress headers/footers and pipe only the raw output.
 
 ## Official Starter Agents
 

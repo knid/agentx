@@ -14,6 +14,12 @@ const DOCS = [
     href: '/docs/getting-started',
   },
   {
+    title: 'Pipes and Agent Chaining',
+    description:
+      'Chain agents together with Unix pipes — build multi-step AI workflows in a single command.',
+    href: '/docs/pipes-and-chaining',
+  },
+  {
     title: 'Creating Agents',
     description:
       'Learn how to scaffold, build, test, and publish your own AI agents.',
@@ -30,12 +36,6 @@ const DOCS = [
     description:
       'Set up cron-based schedules to run agents automatically in the background.',
     href: '/docs/scheduling',
-  },
-  {
-    title: 'Pipes and Agent Chaining',
-    description:
-      'Chain agents together with Unix pipes — feed one agent\'s output into another.',
-    href: '/docs/pipes-and-chaining',
   },
 ];
 
@@ -88,14 +88,14 @@ export default function DocsPage() {
               — Run an agent
             </li>
             <li>
-              <code className="text-surface-300">agentx init</code> — Scaffold a
-              new agent
+              <code className="text-surface-300">
+                agentx run a --quiet | agentx run b
+              </code>{' '}
+              — Chain agents together
             </li>
             <li>
-              <code className="text-surface-300">
-                agentx schedule start &lt;agent&gt;
-              </code>{' '}
-              — Schedule an agent
+              <code className="text-surface-300">agentx init</code> — Scaffold a
+              new agent
             </li>
             <li>
               <code className="text-surface-300">agentx doctor</code> — Check

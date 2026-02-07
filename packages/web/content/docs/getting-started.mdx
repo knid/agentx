@@ -63,24 +63,34 @@ For interactive mode (chat-style):
 agentx run gmail-agent -i
 ```
 
-## Pipe Input
+## Chain Agents Together
 
-You can pipe content into an agent:
+This is the killer feature. Agents write to stdout, so you can chain them with standard Unix pipes — build multi-step AI workflows in a single line:
+
+```bash
+# Research, then write a Notion page
+agentx run web-researcher --quiet "2026 AI trends" \
+  | agentx run notion-agent "create a new page summarizing this"
+
+# Scan code, then file bugs
+agentx run security-scanner --quiet "audit src/auth/" \
+  | agentx run linear-agent "create a bug for each finding"
+
+# Three-step pipeline
+agentx run web-researcher --quiet "React best practices" \
+  | agentx run writing-assistant --quiet "rewrite as a team guide" \
+  | agentx run slack-agent "post this to #frontend"
+```
+
+Use `--quiet` on intermediate agents to pipe only raw output. See [Pipes and Agent Chaining](/docs/pipes-and-chaining) for the full guide.
+
+## Pipe Files Into Agents
+
+You can also pipe file content directly:
 
 ```bash
 cat report.csv | agentx run data-analyst "analyze this data"
 ```
-
-## Chain Agents Together
-
-Agents write to stdout, so you can pipe one agent's output into another:
-
-```bash
-agentx run web-researcher --quiet "2026 AI trends" \
-  | agentx run notion-agent "create a new page summarizing this"
-```
-
-Use `--quiet` on the first agent to pipe only the raw output. See [Pipes and Agent Chaining](/docs/pipes-and-chaining) for more examples.
 
 ## List Installed Agents
 
@@ -134,8 +144,8 @@ agentx schedule resume
 
 ## Next Steps
 
+- Master [pipes and agent chaining](/docs/pipes-and-chaining) to build multi-step AI workflows
 - Browse the [agent marketplace](/agents) to discover more agents
 - Learn how to [create your own agent](/docs/creating-agents)
 - Read the [agent.yaml reference](/docs/agent-yaml-reference) for the full manifest spec
-- Set up [agent scheduling](/docs/creating-agents#scheduling) for automated runs
-- Learn about [pipes and agent chaining](/docs/pipes-and-chaining) to combine agents
+- Set up [agent scheduling](/docs/scheduling) for automated runs

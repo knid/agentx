@@ -67,12 +67,13 @@ export default async function HomePage() {
         <div className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-32 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
             <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">
-              AI Agents,{' '}
-              <span className="text-primary-400">One Command Away</span>
+              Chain AI Agents,{' '}
+              <span className="text-primary-400">Ship Faster</span>
             </h1>
             <p className="mt-6 text-lg leading-8 text-surface-300">
-              Discover, install, and run AI agents powered by Claude. The open
-              marketplace for CLI-first AI agents.
+              Install, chain, and orchestrate AI agents from the terminal.
+              Pipe one agent into the next — research, analyze, write, and deploy
+              in a single command.
             </p>
             <div className="mt-10 flex flex-col items-center gap-4">
               <div className="w-full max-w-lg">
@@ -208,12 +209,12 @@ export default async function HomePage() {
               <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-primary-500/10 text-primary-400">
                 <span className="text-lg font-bold">3</span>
               </div>
-              <h3 className="mt-4 font-semibold text-white">Run or Schedule</h3>
+              <h3 className="mt-4 font-semibold text-white">Run or Chain</h3>
               <p className="mt-2 text-sm text-surface-400">
-                Run on demand or schedule for automated execution.
+                Run solo or chain agents together with Unix pipes.
               </p>
               <code className="mt-3 inline-block rounded bg-surface-900 px-3 py-1.5 text-xs text-surface-300">
-                agentx schedule start gmail-agent
+                agentx run a --quiet | agentx run b
               </code>
             </div>
           </div>
