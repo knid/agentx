@@ -1,0 +1,56 @@
+name: notion-agent
+version: 1.0.0
+description: "AI Notion assistant — search pages, manage databases, and organize your workspace from the terminal"
+author: "@knid"
+license: MIT
+category: productivity
+tags:
+  - notion
+  - productivity
+  - wiki
+  - databases
+  - notes
+
+requires:
+  claude_cli: ">=1.0.0"
+  node: ">=18.0.0"
+
+mcp_servers:
+  notion:
+    command: npx
+    args:
+      - "-y"
+      - "@notionhq/notion-mcp-server"
+    env:
+      OPENAPI_MCP_HEADERS: "${secrets.OPENAPI_MCP_HEADERS}"
+
+secrets:
+  - name: OPENAPI_MCP_HEADERS
+    description: "JSON string with Notion API headers (see README for format)"
+    required: true
+
+permissions:
+  network: true
+
+allowed_tools:
+  - "mcp__notion__*"
+
+config:
+  - key: default_database
+    description: "Default Notion database ID to use for queries"
+    default: ""
+  - key: max_results
+    description: "Maximum number of results to return from searches"
+    default: "20"
+
+examples:
+  - prompt: "Search my Notion workspace for pages about project roadmap"
+    description: Search across all pages
+  - prompt: "Create a new page titled 'Meeting Notes - Sprint Review'"
+    description: Create a new page
+  - prompt: "Show me all items in my Tasks database with status 'In Progress'"
+    description: Query a database with filters
+  - prompt: "Summarize the content of my 'Product Requirements' page"
+    description: Read and summarize a page
+  - prompt: "Add a new entry to my reading list database"
+    description: Add a database entry

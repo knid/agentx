@@ -1,0 +1,49 @@
+name: puppeteer-agent
+version: 1.0.0
+description: "AI browser automation assistant — take screenshots, scrape pages, fill forms, and test UIs from the terminal"
+author: "@knid"
+license: MIT
+category: automation
+tags:
+  - puppeteer
+  - browser
+  - automation
+  - screenshots
+  - scraping
+
+requires:
+  claude_cli: ">=1.0.0"
+  node: ">=18.0.0"
+
+mcp_servers:
+  puppeteer:
+    command: npx
+    args:
+      - "-y"
+      - "@modelcontextprotocol/server-puppeteer"
+
+permissions:
+  network: true
+
+allowed_tools:
+  - "mcp__puppeteer__*"
+
+config:
+  - key: viewport_width
+    description: "Browser viewport width in pixels"
+    default: "1280"
+  - key: viewport_height
+    description: "Browser viewport height in pixels"
+    default: "720"
+
+examples:
+  - prompt: "Take a screenshot of https://example.com"
+    description: Capture a webpage screenshot
+  - prompt: "Scrape the product names and prices from this e-commerce page"
+    description: Extract structured data from a page
+  - prompt: "Fill out the contact form on https://example.com/contact with test data"
+    description: Automate form filling
+  - prompt: "Check if there are any broken links on https://example.com"
+    description: Test for broken links
+  - prompt: "Navigate to the login page and take screenshots of each step"
+    description: Document a multi-step user flow

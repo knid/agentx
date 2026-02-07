@@ -1,0 +1,55 @@
+name: writing-assistant
+version: 1.0.0
+description: "AI writing assistant — proofread, rewrite, draft, and improve documents from the terminal"
+author: "@knid"
+license: MIT
+category: writing
+tags:
+  - writing
+  - editing
+  - proofreading
+  - documents
+  - content
+
+requires:
+  claude_cli: ">=1.0.0"
+  node: ">=18.0.0"
+
+mcp_servers:
+  filesystem:
+    command: npx
+    args:
+      - "-y"
+      - "@modelcontextprotocol/server-filesystem"
+      - "${secrets.WORK_DIR}"
+
+secrets:
+  - name: WORK_DIR
+    description: "Directory path where your documents are located (e.g., /Users/you/documents)"
+    required: true
+
+permissions:
+  filesystem: true
+
+allowed_tools:
+  - "mcp__filesystem__*"
+
+config:
+  - key: tone
+    description: "Default writing tone: professional, casual, academic, or creative"
+    default: "professional"
+  - key: language
+    description: "Primary language for writing and editing"
+    default: "English"
+
+examples:
+  - prompt: "Proofread report.md and fix any grammar or spelling errors"
+    description: Proofread a document
+  - prompt: "Rewrite the intro paragraph of proposal.md to be more engaging"
+    description: Rewrite a section for clarity
+  - prompt: "Draft a blog post about remote work best practices and save it as blog-post.md"
+    description: Draft new content
+  - prompt: "Summarize the key points from meeting-notes.md into action items"
+    description: Summarize and extract action items
+  - prompt: "Make the tone of email-draft.txt more formal and professional"
+    description: Adjust tone and style

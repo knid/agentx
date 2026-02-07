@@ -1,0 +1,55 @@
+name: security-scanner
+version: 1.0.0
+description: "AI security scanner — find vulnerabilities, audit dependencies, and review code security from the terminal"
+author: "@knid"
+license: MIT
+category: security
+tags:
+  - security
+  - vulnerabilities
+  - audit
+  - owasp
+  - scanning
+
+requires:
+  claude_cli: ">=1.0.0"
+  node: ">=18.0.0"
+
+mcp_servers:
+  filesystem:
+    command: npx
+    args:
+      - "-y"
+      - "@modelcontextprotocol/server-filesystem"
+      - "${secrets.WORK_DIR}"
+
+secrets:
+  - name: WORK_DIR
+    description: "Root directory of the project to scan (e.g., /Users/you/myproject)"
+    required: true
+
+permissions:
+  filesystem: true
+
+allowed_tools:
+  - "mcp__filesystem__*"
+
+config:
+  - key: scan_depth
+    description: "Scan thoroughness: quick, standard, or deep"
+    default: "standard"
+  - key: report_format
+    description: "Output format for security reports: markdown, json, or text"
+    default: "markdown"
+
+examples:
+  - prompt: "Scan this project for common security vulnerabilities"
+    description: Run a general vulnerability scan
+  - prompt: "Check package.json for dependencies with known vulnerabilities"
+    description: Audit project dependencies
+  - prompt: "Review the authentication code in src/auth/ for security issues"
+    description: Security review of auth code
+  - prompt: "Search for hardcoded secrets or API keys in the codebase"
+    description: Detect leaked credentials
+  - prompt: "Generate a security report for this project"
+    description: Produce a comprehensive security assessment

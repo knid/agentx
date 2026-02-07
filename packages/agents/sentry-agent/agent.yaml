@@ -1,0 +1,61 @@
+name: sentry-agent
+version: 1.0.0
+description: "AI error monitoring assistant — triage Sentry issues, analyze stack traces, and track error trends"
+author: "@knid"
+license: MIT
+category: monitoring
+tags:
+  - sentry
+  - monitoring
+  - errors
+  - debugging
+  - observability
+
+requires:
+  claude_cli: ">=1.0.0"
+  node: ">=18.0.0"
+
+mcp_servers:
+  sentry:
+    command: npx
+    args:
+      - "-y"
+      - "@sentry/mcp-server"
+    env:
+      SENTRY_AUTH_TOKEN: "${secrets.SENTRY_AUTH_TOKEN}"
+
+secrets:
+  - name: SENTRY_AUTH_TOKEN
+    description: "Sentry auth token with project:read, org:read, and event:read scopes"
+    required: true
+
+permissions:
+  network: true
+
+allowed_tools:
+  - "mcp__sentry__*"
+
+config:
+  - key: default_project
+    description: "Default Sentry project slug (e.g., my-web-app)"
+    default: ""
+  - key: severity_filter
+    description: "Minimum severity to show: info, warning, error, or fatal"
+    default: "error"
+
+schedule:
+  - name: "Daily error digest"
+    cron: "0 9 * * 1-5"
+    prompt: "Show unresolved errors from the last 24 hours in the default project — group by issue and include frequency and affected users"
+
+examples:
+  - prompt: "Show me the top unresolved errors in the last 24 hours"
+    description: View recent unresolved issues
+  - prompt: "Investigate the most frequent error and suggest a fix"
+    description: Deep-dive into a specific issue
+  - prompt: "Are there any error spikes compared to yesterday?"
+    description: Detect anomalous error patterns
+  - prompt: "Show the stack trace for issue PROJ-1234"
+    description: Analyze a specific issue's stack trace
+  - prompt: "What errors are affecting the most users right now?"
+    description: Prioritize by user impact

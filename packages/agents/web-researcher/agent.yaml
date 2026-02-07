@@ -1,0 +1,62 @@
+name: web-researcher
+version: 1.0.0
+description: "AI research assistant — search the web, fetch pages, and synthesize findings with source citations"
+author: "@knid"
+license: MIT
+category: research
+tags:
+  - research
+  - web-search
+  - brave
+  - summarization
+  - citations
+
+requires:
+  claude_cli: ">=1.0.0"
+  node: ">=18.0.0"
+
+mcp_servers:
+  brave-search:
+    command: npx
+    args:
+      - "-y"
+      - "@modelcontextprotocol/server-brave-search"
+    env:
+      BRAVE_API_KEY: "${secrets.BRAVE_API_KEY}"
+  fetch:
+    command: npx
+    args:
+      - "-y"
+      - "@modelcontextprotocol/server-fetch"
+
+secrets:
+  - name: BRAVE_API_KEY
+    description: "Brave Search API key (get one at https://brave.com/search/api/)"
+    required: true
+
+permissions:
+  network: true
+
+allowed_tools:
+  - "mcp__brave-search__*"
+  - "mcp__fetch__*"
+
+config:
+  - key: search_depth
+    description: "Number of search results to retrieve per query"
+    default: "10"
+  - key: summary_length
+    description: "Summary detail level: brief, standard, or detailed"
+    default: "detailed"
+
+examples:
+  - prompt: "Research the latest trends in AI agent frameworks and summarize the top 5"
+    description: Research a topic with ranked results
+  - prompt: "Compare Next.js vs Remix for a new SaaS project — pros and cons"
+    description: Technology comparison with analysis
+  - prompt: "Summarize this article: https://example.com/article"
+    description: Fetch and summarize a specific URL
+  - prompt: "Find best practices for PostgreSQL performance tuning"
+    description: Research best practices on a technical topic
+  - prompt: "What are the key announcements from the latest React conference?"
+    description: Research recent events

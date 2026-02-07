@@ -1,0 +1,55 @@
+name: postgres-agent
+version: 1.0.0
+description: "AI PostgreSQL assistant — inspect schemas, run analytical queries, and explore databases from the terminal"
+author: "@knid"
+license: MIT
+category: data
+tags:
+  - postgres
+  - database
+  - sql
+  - analytics
+  - data
+
+requires:
+  claude_cli: ">=1.0.0"
+  node: ">=18.0.0"
+
+mcp_servers:
+  postgres:
+    command: npx
+    args:
+      - "-y"
+      - "@modelcontextprotocol/server-postgres"
+      - "${secrets.POSTGRES_URL}"
+
+secrets:
+  - name: POSTGRES_URL
+    description: "PostgreSQL connection URL (e.g., postgresql://user:pass@localhost:5432/mydb)"
+    required: true
+
+permissions:
+  network: true
+
+allowed_tools:
+  - "mcp__postgres__*"
+
+config:
+  - key: max_rows
+    description: "Maximum number of rows to display in query results"
+    default: "50"
+  - key: read_only
+    description: "Only allow read-only queries (SELECT, EXPLAIN)"
+    default: "true"
+
+examples:
+  - prompt: "Show me all tables and their row counts in this database"
+    description: Inspect database schema overview
+  - prompt: "What are the top 10 customers by total order value?"
+    description: Run an analytical query
+  - prompt: "Describe the relationships between the users and orders tables"
+    description: Explore table relationships
+  - prompt: "Find any orders from the last 24 hours with a total over $1000"
+    description: Query with time and value filters
+  - prompt: "Explain the index usage for the products table"
+    description: Analyze query performance

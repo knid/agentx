@@ -1,0 +1,61 @@
+name: linear-agent
+version: 1.0.0
+description: "AI Linear assistant — manage issues, track cycles, and monitor sprint progress from the terminal"
+author: "@knid"
+license: MIT
+category: productivity
+tags:
+  - linear
+  - issues
+  - project-management
+  - sprints
+  - productivity
+
+requires:
+  claude_cli: ">=1.0.0"
+  node: ">=18.0.0"
+
+mcp_servers:
+  linear:
+    command: npx
+    args:
+      - "-y"
+      - "@modelcontextprotocol/server-linear"
+    env:
+      LINEAR_API_KEY: "${secrets.LINEAR_API_KEY}"
+
+secrets:
+  - name: LINEAR_API_KEY
+    description: "Linear API key (create at Linear Settings > API > Personal API keys)"
+    required: true
+
+permissions:
+  network: true
+
+allowed_tools:
+  - "mcp__linear__*"
+
+config:
+  - key: default_team
+    description: "Default Linear team key (e.g., ENG, PROD)"
+    default: ""
+  - key: max_results
+    description: "Maximum number of issues to display in list operations"
+    default: "20"
+
+schedule:
+  - name: "Sprint status"
+    cron: "0 9 * * 1"
+    prompt: "Show the current cycle status for the default team — include total issues, completed, in progress, and blocked items"
+
+examples:
+  - prompt: "Show me my assigned issues sorted by priority"
+    description: View your current workload
+  - prompt: "Create a bug report: Login page crashes on Safari"
+    description: Create a new issue
+  - prompt: "What's the status of the current sprint cycle?"
+    description: Get cycle progress overview
+  - prompt: "Move issue ENG-142 to 'In Review'"
+    description: Update an issue's status
+  - prompt: "Show all high-priority bugs that are unassigned"
+    description: Find issues needing attention

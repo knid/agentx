@@ -1,0 +1,47 @@
+name: whatsapp-agent
+version: 1.0.0
+description: "AI WhatsApp assistant — send messages, read conversations, and search chat history from the terminal"
+author: "@knid"
+license: MIT
+category: communication
+tags:
+  - whatsapp
+  - messaging
+  - communication
+  - chat
+  - mobile
+
+requires:
+  claude_cli: ">=1.0.0"
+
+mcp_servers:
+  whatsapp:
+    command: uvx
+    args:
+      - "whatsapp-mcp-server"
+
+permissions:
+  network: true
+
+allowed_tools:
+  - "mcp__whatsapp__*"
+
+config:
+  - key: default_contact
+    description: "Default contact name for sending messages"
+    default: ""
+  - key: max_messages
+    description: "Maximum number of messages to retrieve from a conversation"
+    default: "20"
+
+examples:
+  - prompt: "Send a message to John saying I'll be 10 minutes late"
+    description: Send a quick message to a contact
+  - prompt: "Show me my recent conversation with Alice"
+    description: Read a recent chat
+  - prompt: "Search my messages for anything about the dinner reservation"
+    description: Search across conversations
+  - prompt: "What unread messages do I have?"
+    description: Check for new messages
+  - prompt: "Send 'Happy Birthday!' to the Family group"
+    description: Send a group message
