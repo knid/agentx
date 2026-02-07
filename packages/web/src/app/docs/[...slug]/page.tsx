@@ -8,6 +8,7 @@ const DOC_TITLES: Record<string, string> = {
   'getting-started': 'Getting Started',
   'creating-agents': 'Creating Agents',
   'agent-yaml-reference': 'agent.yaml Reference',
+  'scheduling': 'Scheduling Agents',
 };
 
 interface DocPageProps {
