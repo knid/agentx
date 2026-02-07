@@ -18,11 +18,14 @@ export interface RateLimitResult {
  */
 let _redis: Redis | undefined;
 
-function getRedis(): Redis {
+function getRedis(): Redis | null {
+  if (!process.env.UPSTASH_REDIS_REST_URL || !process.env.UPSTASH_REDIS_REST_TOKEN) {
+    return null;
+  }
   if (!_redis) {
     _redis = new Redis({
-      url: process.env.UPSTASH_REDIS_REST_URL!,
-      token: process.env.UPSTASH_REDIS_REST_TOKEN!,
+      url: process.env.UPSTASH_REDIS_REST_URL,
+      token: process.env.UPSTASH_REDIS_REST_TOKEN,
     });
   }
   return _redis;
@@ -32,9 +35,11 @@ function getRedis(): Redis {
  * Returns a rate limiter for unauthenticated requests.
  * Allows 60 requests per 60-second sliding window.
  */
-export function getDefaultLimiter(): Ratelimit {
+export function getDefaultLimiter(): Ratelimit | null {
+  const redis = getRedis();
+  if (!redis) return null;
   return new Ratelimit({
-    redis: getRedis(),
+    redis,
     limiter: Ratelimit.slidingWindow(60, '60 s'),
     analytics: true,
     prefix: 'ratelimit:default',
@@ -45,9 +50,11 @@ export function getDefaultLimiter(): Ratelimit {
  * Returns a rate limiter for authenticated requests.
  * Allows 120 requests per 60-second sliding window.
  */
-export function getAuthenticatedLimiter(): Ratelimit {
+export function getAuthenticatedLimiter(): Ratelimit | null {
+  const redis = getRedis();
+  if (!redis) return null;
   return new Ratelimit({
-    redis: getRedis(),
+    redis,
     limiter: Ratelimit.slidingWindow(120, '60 s'),
     analytics: true,
     prefix: 'ratelimit:authenticated',
@@ -58,9 +65,11 @@ export function getAuthenticatedLimiter(): Ratelimit {
  * Returns a rate limiter for publish operations.
  * Allows 10 requests per 1-hour sliding window.
  */
-export function getPublishLimiter(): Ratelimit {
+export function getPublishLimiter(): Ratelimit | null {
+  const redis = getRedis();
+  if (!redis) return null;
   return new Ratelimit({
-    redis: getRedis(),
+    redis,
     limiter: Ratelimit.slidingWindow(10, '1 h'),
     analytics: true,
     prefix: 'ratelimit:publish',
@@ -76,8 +85,13 @@ export function getPublishLimiter(): Ratelimit {
  */
 export async function rateLimit(
   identifier: string,
-  limiter?: Ratelimit,
+  limiter?: Ratelimit | null,
 ): Promise<RateLimitResult> {
+  const redis = getRedis();
+  if (!redis) {
+    return { success: true, limit: 0, remaining: 0, reset: 0 };
+  }
+
   const rl = limiter ?? getDefaultLimiter();
   const result = await rl.limit(identifier);
 
