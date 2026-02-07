@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const body = (await request.json()) as { redirect_uri?: string };
+    const body = (await request.json()) as { redirect_uri?: string; state?: string };
 
     if (!body.redirect_uri) {
       return NextResponse.json(
@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const state = randomBytes(16).toString('hex');
+    const state = body.state ?? randomBytes(16).toString('hex');
     const authUrl = getGitHubAuthUrl(body.redirect_uri, state);
 
     return NextResponse.json(
