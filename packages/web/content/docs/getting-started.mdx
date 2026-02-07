@@ -97,8 +97,33 @@ agentx update --all
 agentx uninstall gmail-agent
 ```
 
+## Schedule an Agent
+
+Agents with a `schedule` block in their manifest can run automatically on a cron schedule:
+
+```bash
+# Start the agent's schedule
+agentx schedule start slack-agent
+
+# View active schedules
+agentx schedule list
+
+# Check the latest run
+agentx schedule logs slack-agent
+
+# Stop the schedule
+agentx schedule stop slack-agent
+```
+
+A background daemon manages all schedules. It starts automatically when you schedule your first agent and shuts down when all schedules are stopped. After a system restart, resume your schedules with:
+
+```bash
+agentx schedule resume
+```
+
 ## Next Steps
 
 - Browse the [agent marketplace](/agents) to discover more agents
 - Learn how to [create your own agent](/docs/creating-agents)
 - Read the [agent.yaml reference](/docs/agent-yaml-reference) for the full manifest spec
+- Set up [agent scheduling](/docs/creating-agents#scheduling) for automated runs

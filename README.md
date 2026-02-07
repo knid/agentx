@@ -27,6 +27,7 @@
 - **Publish agents** - Share your agents with `agentx publish`
 - **Scaffold agents** - Create new agents with `agentx init`
 - **Encrypted secrets** - AES-256-GCM encrypted secrets per agent
+- **Schedule agents** - Cron-based scheduling: `agentx schedule start <agent>`
 - **Pipe support** - `cat data.csv | agentx run data-analyst "summarize"`
 - **MCP integration** - Agents declare MCP servers for tool access
 
@@ -82,6 +83,11 @@ agentx run data-analyst -i
 | `agentx validate` | Validate an agent manifest |
 | `agentx test` | Test an agent locally |
 | `agentx publish` | Publish an agent to the registry |
+| `agentx schedule start <agent>` | Start an agent's cron schedule |
+| `agentx schedule stop <agent>` | Stop an agent's schedule |
+| `agentx schedule list` | List all active schedules |
+| `agentx schedule logs <agent>` | View execution logs for a scheduled agent |
+| `agentx schedule resume` | Resume all schedules after restart |
 | `agentx configure <agent>` | Configure secrets for an agent |
 | `agentx login` | Authenticate with GitHub |
 | `agentx logout` | Clear authentication |
@@ -119,17 +125,47 @@ description: A helpful agent
 author: "@yourusername"
 category: productivity
 permissions:
-  - read
-  - write
+  filesystem: true
+  network: true
 mcp_servers:
-  - name: filesystem
+  filesystem:
     command: npx
     args: ["-y", "@modelcontextprotocol/server-filesystem", "./"]
 secrets:
   - name: API_KEY
     description: API key for the service
     required: true
+schedule:
+  - name: "Daily report"
+    cron: "0 9 * * 1-5"
+    prompt: "Generate the daily report"
 ```
+
+## Scheduling
+
+Agents can declare cron-based schedules in `agent.yaml`. A shared background daemon runs on your machine and executes agents at the specified times.
+
+```bash
+# Start an agent's schedule
+agentx schedule start slack-agent
+
+# View active schedules
+agentx schedule list
+
+# Check execution logs
+agentx schedule logs slack-agent
+
+# View all past runs
+agentx schedule logs slack-agent --all
+
+# Stop a schedule
+agentx schedule stop slack-agent
+
+# Resume all schedules after a restart
+agentx schedule resume
+```
+
+The daemon automatically retries failed runs (up to 2 retries with backoff), rotates logs (keeps last 50 per agent), and cleans up when all schedules are stopped.
 
 ## Official Starter Agents
 

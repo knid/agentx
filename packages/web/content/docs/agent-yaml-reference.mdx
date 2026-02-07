@@ -146,6 +146,28 @@ config:
     default: professional
 ```
 
+### schedule
+
+Optional array of cron-based schedule entries. Maximum 10 entries per agent. When a user runs `agentx schedule start <agent>`, a background daemon executes the agent at the specified times.
+
+```yaml
+schedule:
+  - name: "Daily standup"
+    cron: "0 9 * * 1-5"
+    prompt: "Post the daily standup summary to #engineering"
+  - name: "Weekly report"
+    cron: "0 17 * * 5"
+    prompt: "Generate and post the weekly activity summary"
+```
+
+Each entry has the following fields:
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `name` | string | No | Human-readable label. Defaults to the cron expression if omitted. |
+| `cron` | string | Yes | Standard 5-field cron expression (minute hour day-of-month month day-of-week). |
+| `prompt` | string | Yes | The prompt sent to the agent when the schedule fires. 1-2000 characters. |
+
 ### examples
 
 Example prompts that demonstrate agent usage.
@@ -196,6 +218,11 @@ config:
   - name: language
     description: Preferred response language
     default: English
+
+schedule:
+  - name: "Morning digest"
+    cron: "0 8 * * 1-5"
+    prompt: "Summarize unread emails from the last 24 hours"
 
 examples:
   - prompt: "summarize unread emails from today"

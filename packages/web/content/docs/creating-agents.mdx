@@ -98,6 +98,29 @@ permissions:
 
 This helps users understand the agent's capabilities before installing.
 
+## Scheduling
+
+Agents can declare cron-based schedules that run automatically via a background daemon. Add a `schedule` block to your `agent.yaml`:
+
+```yaml
+schedule:
+  - name: "Daily standup"
+    cron: "0 9 * * 1-5"
+    prompt: "Post the daily standup summary to #engineering"
+  - name: "Weekly report"
+    cron: "0 17 * * 5"
+    prompt: "Generate and post the weekly activity summary"
+```
+
+Each entry requires:
+- **cron** — A standard 5-field cron expression (minute hour day-of-month month day-of-week)
+- **prompt** — The prompt sent to the agent when the schedule fires (max 2000 chars)
+- **name** (optional) — A human-readable label shown in `schedule list`
+
+Limits: maximum 10 schedule entries per agent.
+
+Users activate schedules with `agentx schedule start <agent>`. The daemon handles retries on failure (up to 2 retries with backoff) and rotates logs automatically.
+
 ## Validate Your Agent
 
 Run validation to check your manifest:
@@ -146,3 +169,4 @@ Each version is immutable — you cannot overwrite an existing version.
 - Use semantic versioning
 - Test your agent locally before publishing
 - Keep your agent focused on a single task or domain
+- Add a `schedule` block for agents that benefit from automated runs
