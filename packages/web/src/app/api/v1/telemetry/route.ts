@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
-import { db } from '@/lib/db/index.js';
-import { telemetry, agents } from '@/lib/db/schema.js';
-import { rateLimit, getDefaultLimiter } from '@/lib/utils/rate-limit.js';
+import { db } from '@/lib/db/index';
+import { telemetry, agents } from '@/lib/db/schema';
+import { rateLimit, getDefaultLimiter } from '@/lib/utils/rate-limit';
 import { eq, and } from 'drizzle-orm';
 
 const telemetryEventSchema = z.object({
