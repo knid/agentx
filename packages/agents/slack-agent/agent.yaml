@@ -47,6 +47,11 @@ config:
     description: "Maximum number of messages to return in search results"
     default: "20"
 
+schedule:
+  - name: "Daily standup"
+    cron: "0 9 * * 1-5"
+    prompt: "Post the daily standup summary to the configured default channel — include any recent updates from team members"
+
 examples:
   - prompt: "Send a message to #engineering saying the deploy is complete"
     description: Post a message to a channel

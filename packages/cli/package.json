@@ -1,6 +1,6 @@
 {
   "name": "@knid/agentx",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "The package manager for AI agents powered by Claude Code",
   "type": "module",
   "bin": {
@@ -28,6 +28,7 @@
     "@clack/prompts": "^0.9.0",
     "chalk": "^5.4.0",
     "commander": "^12.0.0",
+    "croner": "^10.0.1",
     "execa": "^9.0.0",
     "marked": "^15.0.12",
     "marked-terminal": "^7.3.0",

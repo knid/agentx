@@ -466,6 +466,153 @@ describe('agent-yaml schema', () => {
   });
 
   // ---------------------------------------------------------------
+  // Schedule block validation
+  // ---------------------------------------------------------------
+  describe('schedule block', () => {
+    it('should accept valid schedule with single entry', () => {
+      const result = agentYamlSchema.safeParse({
+        ...validMinimal,
+        schedule: [
+          { name: 'Daily standup', cron: '0 9 * * 1-5', prompt: 'Post standup' },
+        ],
+      });
+      expect(result.success).toBe(true);
+    });
+
+    it('should accept schedule entry without name (optional)', () => {
+      const result = agentYamlSchema.safeParse({
+        ...validMinimal,
+        schedule: [
+          { cron: '0 9 * * *', prompt: 'Do something daily' },
+        ],
+      });
+      expect(result.success).toBe(true);
+    });
+
+    it('should accept multiple schedule entries', () => {
+      const result = agentYamlSchema.safeParse({
+        ...validMinimal,
+        schedule: [
+          { name: 'Morning', cron: '0 9 * * *', prompt: 'Morning task' },
+          { name: 'Evening', cron: '0 17 * * *', prompt: 'Evening task' },
+          { cron: '*/15 * * * *', prompt: 'Frequent check' },
+        ],
+      });
+      expect(result.success).toBe(true);
+    });
+
+    it('should reject invalid cron expression', () => {
+      const result = agentYamlSchema.safeParse({
+        ...validMinimal,
+        schedule: [
+          { cron: 'not a cron', prompt: 'Do something' },
+        ],
+      });
+      expect(result.success).toBe(false);
+    });
+
+    it('should reject schedule entry missing prompt', () => {
+      const result = agentYamlSchema.safeParse({
+        ...validMinimal,
+        schedule: [
+          { cron: '0 9 * * *' },
+        ],
+      });
+      expect(result.success).toBe(false);
+    });
+
+    it('should reject empty prompt', () => {
+      const result = agentYamlSchema.safeParse({
+        ...validMinimal,
+        schedule: [
+          { cron: '0 9 * * *', prompt: '' },
+        ],
+      });
+      expect(result.success).toBe(false);
+    });
+
+    it('should reject prompt exceeding 2000 characters', () => {
+      const result = agentYamlSchema.safeParse({
+        ...validMinimal,
+        schedule: [
+          { cron: '0 9 * * *', prompt: 'x'.repeat(2001) },
+        ],
+      });
+      expect(result.success).toBe(false);
+    });
+
+    it('should accept prompt exactly 2000 characters', () => {
+      const result = agentYamlSchema.safeParse({
+        ...validMinimal,
+        schedule: [
+          { cron: '0 9 * * *', prompt: 'x'.repeat(2000) },
+        ],
+      });
+      expect(result.success).toBe(true);
+    });
+
+    it('should reject more than 10 schedule entries', () => {
+      const entries = Array.from({ length: 11 }, (_, i) => ({
+        name: `Schedule ${i}`,
+        cron: '0 9 * * *',
+        prompt: `Task ${i}`,
+      }));
+      const result = agentYamlSchema.safeParse({
+        ...validMinimal,
+        schedule: entries,
+      });
+      expect(result.success).toBe(false);
+    });
+
+    it('should accept exactly 10 schedule entries', () => {
+      const entries = Array.from({ length: 10 }, (_, i) => ({
+        name: `Schedule ${i}`,
+        cron: '0 9 * * *',
+        prompt: `Task ${i}`,
+      }));
+      const result = agentYamlSchema.safeParse({
+        ...validMinimal,
+        schedule: entries,
+      });
+      expect(result.success).toBe(true);
+    });
+
+    it('should reject schedule entry with missing cron', () => {
+      const result = agentYamlSchema.safeParse({
+        ...validMinimal,
+        schedule: [
+          { name: 'No cron', prompt: 'Do something' },
+        ],
+      });
+      expect(result.success).toBe(false);
+    });
+
+    it('should accept common cron patterns', () => {
+      const patterns = [
+        '* * * * *',        // every minute
+        '0 * * * *',        // every hour
+        '0 0 * * *',        // daily at midnight
+        '0 9 * * 1-5',      // weekdays at 9am
+        '*/5 * * * *',      // every 5 minutes
+        '0 0 1 * *',        // first of every month
+        '0 0 * * 0',        // every sunday
+      ];
+      for (const cron of patterns) {
+        const result = agentYamlSchema.safeParse({
+          ...validMinimal,
+          schedule: [{ cron, prompt: 'test' }],
+        });
+        expect(result.success, `cron "${cron}" should be valid`).toBe(true);
+      }
+    });
+
+    it('should not affect existing agents without schedule block', () => {
+      const result = agentYamlSchema.safeParse(validMinimal);
+      expect(result.success).toBe(true);
+    });
+  });
+
+  // ---------------------------------------------------------------
   // T048-37: VALID_CATEGORIES export
   // ---------------------------------------------------------------
   describe('VALID_CATEGORIES', () => {

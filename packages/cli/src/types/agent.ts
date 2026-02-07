@@ -61,6 +61,7 @@ export interface AgentManifest {
   mcp_servers?: Record<string, MCPServerConfig>;
   secrets?: SecretDeclaration[];
   permissions?: Permission;
+  allowed_tools?: string[];
   config?: ConfigOption[];
   examples?: AgentExample[];
 }
