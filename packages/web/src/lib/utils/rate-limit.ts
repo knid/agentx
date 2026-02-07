@@ -93,6 +93,9 @@ export async function rateLimit(
   }
 
   const rl = limiter ?? getDefaultLimiter();
+  if (!rl) {
+    return { success: true, limit: 0, remaining: 0, reset: 0 };
+  }
   const result = await rl.limit(identifier);
 
   return {
