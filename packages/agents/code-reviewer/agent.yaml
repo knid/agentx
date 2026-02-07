@@ -1,7 +1,7 @@
 name: code-reviewer
 version: 1.0.0
 description: "AI code review assistant — review PRs, analyze diffs, and provide actionable feedback"
-author: "@agentx"
+author: "@knid"
 license: MIT
 category: devtools
 tags:

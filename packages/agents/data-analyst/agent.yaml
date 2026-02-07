@@ -1,7 +1,7 @@
 name: data-analyst
 version: 1.0.0
 description: "AI data analysis assistant — analyze CSV, JSON, and other data files with natural language"
-author: "@agentx"
+author: "@knid"
 license: MIT
 category: data
 tags:

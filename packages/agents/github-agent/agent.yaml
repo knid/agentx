@@ -1,7 +1,7 @@
 name: github-agent
 version: 1.0.0
 description: "AI GitHub assistant — manage PRs, issues, repos, and code reviews from the terminal"
-author: "@agentx"
+author: "@knid"
 license: MIT
 category: devtools
 tags:

@@ -1,7 +1,7 @@
 name: slack-agent
 version: 1.0.0
 description: "AI Slack assistant — send messages, search conversations, and manage channels from the terminal"
-author: "@agentx"
+author: "@knid"
 license: MIT
 category: communication
 tags:

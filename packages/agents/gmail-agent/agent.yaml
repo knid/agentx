@@ -1,7 +1,7 @@
 name: gmail-agent
 version: 1.0.0
 description: "AI email assistant powered by Gmail — compose, search, summarize, and manage your inbox"
-author: "@agentx"
+author: "@knid"
 license: MIT
 category: communication
 tags:
