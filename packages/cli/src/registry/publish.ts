@@ -54,7 +54,7 @@ export async function publishAgent(
   // Upload to the registry.
   const client = createRegistryClient({ token });
   return client.put<PublishResponse>(
-    `/agents/${scope}/${manifest.name}`,
+    `/agents`,
     formData,
   );
 }
