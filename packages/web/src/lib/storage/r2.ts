@@ -70,7 +70,6 @@ export async function uploadTarball(
       Key: key,
       Body: body,
       ContentType: 'application/gzip',
-      ChecksumSHA256: sha256,
       Metadata: {
         'sha256': sha256,
       },
