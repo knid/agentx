@@ -7,6 +7,7 @@ import { resolveMCPConfig, writeTempMCPConfig } from './mcp-builder.js';
 import { detectPipedInput, readPipedInput, buildPromptWithPipe } from './pipe-handler.js';
 import { formatOutput } from './output-formatter.js';
 import { sendTelemetry } from '../telemetry/reporter.js';
+import { loadSecrets } from '../secrets/store.js';
 
 export interface ClaudeArgsOptions {
   prompt?: string;
@@ -76,8 +77,7 @@ export async function runAgent(
   // Resolve MCP config with secrets
   let mcpConfigPath: string | undefined;
   if (manifest.mcp_servers && Object.keys(manifest.mcp_servers).length > 0) {
-    // For now, secrets are empty until the secrets module is implemented
-    const secrets: Record<string, string> = {};
+    const secrets = await loadSecrets(manifest.name);
     const resolved = resolveMCPConfig(manifest.mcp_servers, secrets);
     mcpConfigPath = await writeTempMCPConfig(resolved);
   }
