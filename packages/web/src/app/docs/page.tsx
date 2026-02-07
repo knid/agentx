@@ -53,7 +53,7 @@ export default function DocsPage() {
         <div className="mt-4 rounded-lg bg-surface-950 p-4">
           <code className="text-sm text-surface-200">
             <span className="text-surface-500">$ </span>
-            npm install -g agentx
+            npm install -g @knid/agentx
           </code>
         </div>
         <div className="mt-4 space-y-2 text-sm text-surface-400">

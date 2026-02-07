@@ -85,7 +85,7 @@ export default async function HomePage() {
               <div className="flex items-center gap-3 rounded-lg border border-surface-700 bg-surface-900 px-5 py-2.5">
                 <code className="text-sm text-surface-200">
                   <span className="text-surface-500">$ </span>
-                  npm install -g agentx
+                  npm install -g @knid/agentx
                 </code>
               </div>
             </div>
@@ -189,7 +189,7 @@ export default async function HomePage() {
                 Install the agentx CLI globally via npm.
               </p>
               <code className="mt-3 inline-block rounded bg-surface-900 px-3 py-1.5 text-xs text-surface-300">
-                npm install -g agentx
+                npm install -g @knid/agentx
               </code>
             </div>
             <div className="text-center">

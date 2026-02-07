@@ -38,7 +38,7 @@
 ## Install
 
 ```bash
-npm install -g agentx
+npm install -g @knid/agentx
 ```
 
 Verify your setup:

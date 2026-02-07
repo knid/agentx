@@ -9,7 +9,7 @@
 ## Install agentx
 
 ```bash
-npm install -g agentx
+npm install -g @knid/agentx
 ```
 
 ## Verify Setup
@@ -91,7 +91,7 @@ agentx uninstall gmail-agent
 
 ## Verification Steps
 
-1. `npm install -g agentx` completes without errors
+1. `npm install -g @knid/agentx` completes without errors
 2. `agentx doctor` reports all checks passing
 3. `agentx search email` returns results from the registry
 4. `agentx install @agentx/data-analyst` downloads and extracts the agent
