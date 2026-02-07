@@ -146,6 +146,26 @@ config:
     default: professional
 ```
 
+### pre_run
+
+Optional array of commands to execute before the Claude CLI spawns. Maximum 5 entries. Use this to start dependencies like bridges or local servers that the agent's MCP server needs.
+
+```yaml
+pre_run:
+  - command: whatsapp-bridge
+    background: true
+  - command: setup-db
+    args: ["--migrate"]
+```
+
+Each entry has the following fields:
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `command` | string | Yes | The command to run. Must be on `$PATH`. |
+| `args` | string[] | No | Arguments to pass to the command. |
+| `background` | boolean | No | If `true`, the process is spawned detached (fire-and-forget). If `false` or omitted, the hook blocks and must exit 0 before the agent starts. |
+
 ### schedule
 
 Optional array of cron-based schedule entries. Maximum 10 entries per agent. When a user runs `agentx schedule start <agent>`, a background daemon executes the agent at the specified times.
@@ -196,6 +216,10 @@ tags:
 requires:
   claude_cli: ">=1.0.0"
   node: ">=18.0.0"
+
+pre_run:
+  - command: gmail-bridge
+    background: true
 
 mcp_servers:
   gmail:

@@ -128,6 +128,9 @@ category: productivity
 permissions:
   filesystem: true
   network: true
+pre_run:
+  - command: my-bridge
+    background: true
 mcp_servers:
   filesystem:
     command: npx

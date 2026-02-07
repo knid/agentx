@@ -36,8 +36,6 @@ Copy or symlink the built binary somewhere on your `$PATH`:
 cp whatsapp-bridge /usr/local/bin/
 ```
 
-Alternatively, set the `WHATSAPP_BRIDGE_PATH` environment variable to the binary's location.
-
 ### 3. Scan the QR Code (First Time)
 
 Run the bridge once manually to complete initial authentication:
