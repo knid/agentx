@@ -42,7 +42,7 @@ export function buildClaudeArgs(options: ClaudeArgsOptions): string[] {
 
   if (options.mcpConfigPath) {
     args.push('--mcp-config', options.mcpConfigPath);
-    args.push('--permission-mode', 'acceptEdits');
+    args.push('--dangerously-skip-permissions');
   }
 
   if (options.maxTurns !== undefined) {
