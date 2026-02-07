@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Publish all 5 official starter agents to the agentx registry.
+# Publish all 14 official starter agents to the agentx registry.
 # Prerequisites:
 #   1. agentx CLI is built and linked: cd packages/cli && npm link
 #   2. You are logged in: agentx login
@@ -11,7 +11,22 @@
 set -euo pipefail
 
 AGENTS_DIR="packages/agents"
-AGENTS=("gmail-agent" "github-agent" "data-analyst" "slack-agent" "code-reviewer")
+AGENTS=(
+  "gmail-agent"
+  "github-agent"
+  "data-analyst"
+  "slack-agent"
+  "code-reviewer"
+  "web-researcher"
+  "postgres-agent"
+  "notion-agent"
+  "sentry-agent"
+  "whatsapp-agent"
+  "linear-agent"
+  "puppeteer-agent"
+  "writing-assistant"
+  "security-scanner"
+)
 
 echo "Publishing ${#AGENTS[@]} starter agents..."
 echo ""
