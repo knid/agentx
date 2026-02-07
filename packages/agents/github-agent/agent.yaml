@@ -1,5 +1,5 @@
 name: github-agent
-version: 1.0.1
+version: 1.0.2
 description: "AI GitHub assistant — manage PRs, issues, repos, and code reviews from the terminal"
 author: "@knid"
 license: MIT
@@ -31,6 +31,9 @@ secrets:
 
 permissions:
   network: true
+
+allowed_tools:
+  - "mcp__github__*"
 
 config:
   - key: default_repo

@@ -1,5 +1,5 @@
 name: code-reviewer
-version: 1.0.1
+version: 1.0.2
 description: "AI code review assistant — review PRs, analyze diffs, and provide actionable feedback"
 author: "@knid"
 license: MIT
@@ -41,6 +41,10 @@ secrets:
 permissions:
   filesystem: true
   network: true
+
+allowed_tools:
+  - "mcp__github__*"
+  - "mcp__filesystem__*"
 
 config:
   - key: review_focus

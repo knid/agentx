@@ -1,5 +1,5 @@
 name: data-analyst
-version: 1.0.1
+version: 1.0.2
 description: "AI data analysis assistant — analyze CSV, JSON, and other data files with natural language"
 author: "@knid"
 license: MIT
@@ -30,6 +30,9 @@ secrets:
 
 permissions:
   filesystem: true
+
+allowed_tools:
+  - "mcp__filesystem__*"
 
 config:
   - key: max_rows_preview

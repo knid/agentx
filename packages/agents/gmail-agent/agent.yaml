@@ -1,5 +1,5 @@
 name: gmail-agent
-version: 1.0.1
+version: 1.0.2
 description: "AI email assistant powered by Gmail — compose, search, summarize, and manage your inbox"
 author: "@knid"
 license: MIT
@@ -31,6 +31,9 @@ secrets:
 
 permissions:
   network: true
+
+allowed_tools:
+  - "mcp__gmail__*"
 
 config:
   - key: max_results
