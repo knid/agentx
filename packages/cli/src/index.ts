@@ -20,6 +20,7 @@ import { infoCommand } from './commands/info.js';
 import { searchCommand } from './commands/search.js';
 import { trendingCommand } from './commands/trending.js';
 import { configCommand } from './commands/config.js';
+import { scheduleCommand } from './commands/schedule.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -63,5 +64,6 @@ program.addCommand(infoCommand);
 program.addCommand(searchCommand);
 program.addCommand(trendingCommand);
 program.addCommand(configCommand);
+program.addCommand(scheduleCommand);
 
 program.parse();

@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { Cron } from 'croner';
 
 /**
  * Valid categories for an agent manifest.
@@ -76,6 +77,25 @@ const requiresSchema = z.object({
 });
 
 /**
+ * Zod schema for a schedule entry.
+ */
+const scheduleEntrySchema = z.object({
+  name: z.string().optional(),
+  cron: z.string().refine(
+    (val) => {
+      try {
+        new Cron(val);
+        return true;
+      } catch {
+        return false;
+      }
+    },
+    { message: 'Invalid cron expression' },
+  ),
+  prompt: z.string().min(1).max(2000),
+});
+
+/**
  * Zod schema for validating an agent.yaml manifest file.
  *
  * Enforces naming conventions, semver versioning, category enums,
@@ -106,6 +126,7 @@ export const agentYamlSchema = z.object({
   allowed_tools: z.array(z.string()).optional(),
   config: z.array(configOptionSchema).optional(),
   examples: z.array(exampleSchema).optional(),
+  schedule: z.array(scheduleEntrySchema).max(10).optional(),
 });
 
 /** Inferred TypeScript type from the agent.yaml Zod schema. */

@@ -1,8 +1,10 @@
 import { Command } from 'commander';
 import { existsSync, rmSync } from 'node:fs';
 import { join } from 'node:path';
-import { AGENTS_DIR } from '../config/paths.js';
+import { AGENTS_DIR, SCHEDULER_STATE, SCHEDULER_PID } from '../config/paths.js';
 import { deleteSecrets } from '../secrets/store.js';
+import { loadScheduleState, removeAgentFromState, saveScheduleState } from '../scheduler/state.js';
+import { isDaemonRunning, signalDaemon, stopDaemon } from '../scheduler/process.js';
 import { colors } from '../ui/colors.js';
 
 export const uninstallCommand = new Command('uninstall')
@@ -22,6 +24,23 @@ Examples:
           colors.error(`Agent "${agentName}" is not installed.`),
         );
         process.exit(1);
+      }
+
+      // Stop schedule if active
+      try {
+        const state = await loadScheduleState(SCHEDULER_STATE);
+        if (state.agents[agentName]) {
+          const updated = removeAgentFromState(state, agentName);
+          await saveScheduleState(updated, SCHEDULER_STATE);
+          if (Object.keys(updated.agents).length === 0) {
+            stopDaemon(SCHEDULER_PID);
+          } else if (isDaemonRunning(SCHEDULER_PID)) {
+            signalDaemon('SIGHUP', SCHEDULER_PID);
+          }
+          console.log(colors.dim(`Stopped schedule for ${agentName}`));
+        }
+      } catch {
+        // Scheduler may not be initialized, that's fine
       }
 
       // Remove agent directory
