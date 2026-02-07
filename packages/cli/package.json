@@ -1,6 +1,6 @@
 {
   "name": "@knid/agentx",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "The package manager for AI agents powered by Claude Code",
   "type": "module",
   "bin": {

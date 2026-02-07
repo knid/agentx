@@ -103,6 +103,7 @@ export const agentYamlSchema = z.object({
   mcp_servers: z.record(mcpServerSchema).optional(),
   secrets: z.array(secretSchema).optional(),
   permissions: permissionsSchema.optional(),
+  allowed_tools: z.array(z.string()).optional(),
   config: z.array(configOptionSchema).optional(),
   examples: z.array(exampleSchema).optional(),
 });

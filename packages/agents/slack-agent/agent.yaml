@@ -1,5 +1,5 @@
 name: slack-agent
-version: 1.0.2
+version: 1.0.3
 description: "AI Slack assistant — send messages, search conversations, and manage channels from the terminal"
 author: "@knid"
 license: MIT
@@ -35,6 +35,9 @@ secrets:
 
 permissions:
   network: true
+
+allowed_tools:
+  - "mcp__slack__*"
 
 config:
   - key: default_channel

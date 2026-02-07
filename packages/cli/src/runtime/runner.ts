@@ -16,6 +16,7 @@ export interface ClaudeArgsOptions {
   maxTurns?: number;
   outputFormat?: 'text' | 'json';
   interactive?: boolean;
+  allowedTools?: string[];
 }
 
 export interface RunOptions {
@@ -42,7 +43,10 @@ export function buildClaudeArgs(options: ClaudeArgsOptions): string[] {
 
   if (options.mcpConfigPath) {
     args.push('--mcp-config', options.mcpConfigPath);
-    args.push('--dangerously-skip-permissions');
+  }
+
+  if (options.allowedTools && options.allowedTools.length > 0) {
+    args.push('--allowedTools', ...options.allowedTools);
   }
 
   if (options.maxTurns !== undefined) {
@@ -111,6 +115,7 @@ export async function runAgent(
       maxTurns: globalConfig.claude_defaults.max_turns,
       outputFormat: options.outputFormat ?? (globalConfig.default_output as 'text' | 'json'),
       interactive: options.interactive,
+      allowedTools: manifest.allowed_tools,
     });
 
     if (options.debug) {
