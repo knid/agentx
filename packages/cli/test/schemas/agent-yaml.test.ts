@@ -613,6 +613,74 @@ describe('agent-yaml schema', () => {
   });
 
   // ---------------------------------------------------------------
+  // pre_run block validation
+  // ---------------------------------------------------------------
+  describe('pre_run block', () => {
+    it('should accept valid pre_run with command and args', () => {
+      const result = agentYamlSchema.safeParse({
+        ...validMinimal,
+        pre_run: [
+          { command: 'whatsapp-bridge', args: ['--port', '8080'] },
+        ],
+      });
+      expect(result.success).toBe(true);
+    });
+
+    it('should accept pre_run with background: true', () => {
+      const result = agentYamlSchema.safeParse({
+        ...validMinimal,
+        pre_run: [
+          { command: 'whatsapp-bridge', background: true },
+        ],
+      });
+      expect(result.success).toBe(true);
+    });
+
+    it('should accept pre_run with only command (args and background optional)', () => {
+      const result = agentYamlSchema.safeParse({
+        ...validMinimal,
+        pre_run: [{ command: 'setup-script' }],
+      });
+      expect(result.success).toBe(true);
+    });
+
+    it('should reject pre_run entry with missing command', () => {
+      const result = agentYamlSchema.safeParse({
+        ...validMinimal,
+        pre_run: [{ args: ['--flag'] }],
+      });
+      expect(result.success).toBe(false);
+    });
+
+    it('should reject more than 5 pre_run entries', () => {
+      const entries = Array.from({ length: 6 }, (_, i) => ({
+        command: `cmd-${i}`,
+      }));
+      const result = agentYamlSchema.safeParse({
+        ...validMinimal,
+        pre_run: entries,
+      });
+      expect(result.success).toBe(false);
+    });
+
+    it('should accept exactly 5 pre_run entries', () => {
+      const entries = Array.from({ length: 5 }, (_, i) => ({
+        command: `cmd-${i}`,
+      }));
+      const result = agentYamlSchema.safeParse({
+        ...validMinimal,
+        pre_run: entries,
+      });
+      expect(result.success).toBe(true);
+    });
+
+    it('should not affect existing agents without pre_run block', () => {
+      const result = agentYamlSchema.safeParse(validMinimal);
+      expect(result.success).toBe(true);
+    });
+  });
+
+  // ---------------------------------------------------------------
   // T048-37: VALID_CATEGORIES export
   // ---------------------------------------------------------------
   describe('VALID_CATEGORIES', () => {

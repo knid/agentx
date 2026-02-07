@@ -9,6 +9,12 @@ vi.mock('execa', () => ({
   }),
 }));
 
+// Mock child_process before importing
+vi.mock('node:child_process', () => ({
+  execFileSync: vi.fn(),
+  spawn: vi.fn(() => ({ unref: vi.fn() })),
+}));
+
 describe('runner', () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -78,6 +84,54 @@ describe('runner', () => {
 
       await expect(runAgent('nonexistent-agent', { prompt: 'hello' }))
         .rejects.toThrow();
+    });
+  });
+
+  describe('executePreRunHooks', () => {
+    it('should run foreground hook with execFileSync', async () => {
+      const { execFileSync } = await import('node:child_process');
+      const { executePreRunHooks } = await import('../../src/runtime/runner.js');
+
+      executePreRunHooks([{ command: 'setup-db', args: ['--migrate'] }]);
+
+      expect(execFileSync).toHaveBeenCalledWith('setup-db', ['--migrate'], { stdio: 'inherit' });
+    });
+
+    it('should spawn background hook detached and unref', async () => {
+      const { spawn } = await import('node:child_process');
+      const { executePreRunHooks } = await import('../../src/runtime/runner.js');
+
+      const mockUnref = vi.fn();
+      vi.mocked(spawn).mockReturnValueOnce({ unref: mockUnref } as any);
+
+      executePreRunHooks([{ command: 'whatsapp-bridge', background: true }]);
+
+      expect(spawn).toHaveBeenCalledWith('whatsapp-bridge', [], {
+        detached: true,
+        stdio: 'ignore',
+      });
+      expect(mockUnref).toHaveBeenCalled();
+    });
+
+    it('should throw when foreground hook fails', async () => {
+      const { execFileSync } = await import('node:child_process');
+      const { executePreRunHooks } = await import('../../src/runtime/runner.js');
+
+      vi.mocked(execFileSync).mockImplementationOnce(() => {
+        throw new Error('command not found');
+      });
+
+      expect(() => executePreRunHooks([{ command: 'missing-cmd' }]))
+        .toThrow('command not found');
+    });
+
+    it('should execute hooks with default empty args when args not provided', async () => {
+      const { execFileSync } = await import('node:child_process');
+      const { executePreRunHooks } = await import('../../src/runtime/runner.js');
+
+      executePreRunHooks([{ command: 'simple-cmd' }]);
+
+      expect(execFileSync).toHaveBeenCalledWith('simple-cmd', [], { stdio: 'inherit' });
     });
   });
 });

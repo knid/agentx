@@ -46,7 +46,7 @@ When showing messages:
 
 ## Error Handling
 
-- If the WhatsApp bridge is not connected, instruct the user to restart it and scan the QR code
+- The WhatsApp bridge starts automatically via `pre_run` — if it fails to connect, ask the user to verify that `whatsapp-bridge` is on their `$PATH` and that they have completed the initial QR code scan
 - If a contact is not found, suggest checking the spelling or listing available contacts
 - If sending fails, show the error and suggest retrying
-- If the bridge process is not running, guide the user through the setup steps in the README
+- If the bridge process crashes mid-session, suggest running `agentx run whatsapp-agent` again to restart it

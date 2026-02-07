@@ -77,6 +77,15 @@ const requiresSchema = z.object({
 });
 
 /**
+ * Zod schema for a pre-run hook command.
+ */
+const preRunSchema = z.object({
+  command: z.string(),
+  args: z.array(z.string()).optional(),
+  background: z.boolean().optional(),
+});
+
+/**
  * Zod schema for a schedule entry.
  */
 const scheduleEntrySchema = z.object({
@@ -127,6 +136,7 @@ export const agentYamlSchema = z.object({
   config: z.array(configOptionSchema).optional(),
   examples: z.array(exampleSchema).optional(),
   schedule: z.array(scheduleEntrySchema).max(10).optional(),
+  pre_run: z.array(preRunSchema).max(5).optional(),
 });
 
 /** Inferred TypeScript type from the agent.yaml Zod schema. */

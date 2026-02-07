@@ -1,4 +1,5 @@
 import { execa } from 'execa';
+import { execFileSync, spawn } from 'node:child_process';
 import { unlinkSync, existsSync, readFileSync } from 'node:fs';
 import { loadAgentConfig } from '../config/agent-config.js';
 import { loadGlobalConfig } from '../config/global-config.js';
@@ -8,6 +9,7 @@ import { detectPipedInput, readPipedInput, buildPromptWithPipe } from './pipe-ha
 import { printRunHeader, printRunOutput, printRunFooter } from './output-formatter.js';
 import { sendTelemetry } from '../telemetry/reporter.js';
 import { loadSecrets } from '../secrets/store.js';
+import type { PreRunHook } from '../types/agent.js';
 
 export interface ClaudeArgsOptions {
   prompt?: string;
@@ -27,6 +29,30 @@ export interface RunOptions {
   quiet?: boolean;
   debug?: boolean;
   configOverrides?: Record<string, string>;
+}
+
+/**
+ * Execute pre-run hooks declared in the agent manifest.
+ * Foreground hooks block and throw on failure.
+ * Background hooks spawn detached and are fire-and-forget.
+ */
+export function executePreRunHooks(hooks: PreRunHook[], debug?: boolean): void {
+  for (const hook of hooks) {
+    const args = hook.args ?? [];
+    if (debug) {
+      console.error(`[debug] pre_run: ${hook.command} ${args.join(' ')}${hook.background ? ' (background)' : ''}`);
+    }
+
+    if (hook.background) {
+      const child = spawn(hook.command, args, {
+        detached: true,
+        stdio: 'ignore',
+      });
+      child.unref();
+    } else {
+      execFileSync(hook.command, args, { stdio: 'inherit' });
+    }
+  }
 }
 
 /**
@@ -78,6 +104,11 @@ export async function runAgent(
     manifest.config ?? [],
     options.configOverrides ?? {},
   );
+
+  // Execute pre-run hooks before MCP setup
+  if (manifest.pre_run && manifest.pre_run.length > 0) {
+    executePreRunHooks(manifest.pre_run, options.debug);
+  }
 
   // Resolve MCP config with secrets
   let mcpConfigPath: string | undefined;

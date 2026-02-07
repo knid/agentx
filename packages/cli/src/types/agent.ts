@@ -43,6 +43,15 @@ export interface AgentExample {
 }
 
 /**
+ * A command that runs before the agent's Claude CLI process is spawned.
+ */
+export interface PreRunHook {
+  command: string;
+  args?: string[];
+  background?: boolean;
+}
+
+/**
  * The full parsed agent manifest (agent.yaml).
  */
 export interface AgentManifest {
@@ -64,6 +73,7 @@ export interface AgentManifest {
   allowed_tools?: string[];
   config?: ConfigOption[];
   examples?: AgentExample[];
+  pre_run?: PreRunHook[];
 }
 
 /**

@@ -28,17 +28,29 @@ cd whatsapp-mcp-server/whatsapp-bridge
 go build -o whatsapp-bridge
 ```
 
-### 2. Start the Bridge and Scan QR Code
+### 2. Add the Bridge to Your PATH
+
+Copy or symlink the built binary somewhere on your `$PATH`:
 
 ```bash
-./whatsapp-bridge
+cp whatsapp-bridge /usr/local/bin/
 ```
 
-A QR code will appear in your terminal. Scan it with WhatsApp on your phone (Settings > Linked Devices > Link a Device).
+Alternatively, set the `WHATSAPP_BRIDGE_PATH` environment variable to the binary's location.
 
-### 3. Run the Agent
+### 3. Scan the QR Code (First Time)
 
-Once the bridge is connected, the agent is ready to use. No additional secrets are needed — authentication is handled by the QR code scan.
+Run the bridge once manually to complete initial authentication:
+
+```bash
+whatsapp-bridge
+```
+
+A QR code will appear in your terminal. Scan it with WhatsApp on your phone (Settings > Linked Devices > Link a Device). After linking, the session is persisted — you won't need to scan again.
+
+### 4. Run the Agent
+
+The agent automatically starts the WhatsApp bridge in the background via `pre_run`, so you don't need to start it manually. No additional secrets are needed — authentication is handled by the QR code scan.
 
 ```bash
 agentx configure whatsapp-agent

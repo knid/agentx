@@ -14,6 +14,10 @@ tags:
 requires:
   claude_cli: ">=1.0.0"
 
+pre_run:
+  - command: whatsapp-bridge
+    background: true
+
 mcp_servers:
   whatsapp:
     command: uvx
