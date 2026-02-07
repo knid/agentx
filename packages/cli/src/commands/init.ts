@@ -114,6 +114,12 @@ Examples:
         writeFileSync(join(targetDir, file), populated, 'utf-8');
       }
 
+      // Scaffold Claude Code /create-agent skill into .claude/commands/
+      const claudeCommandsDir = join(targetDir, '.claude', 'commands');
+      mkdirSync(claudeCommandsDir, { recursive: true });
+      const skillContent = loadTemplate(templatesDir, 'create-agent.md');
+      writeFileSync(join(claudeCommandsDir, 'create-agent.md'), skillContent, 'utf-8');
+
       p.outro(`Agent scaffolded at ${colors.cyan(targetDir)}`);
       console.log();
       console.log(`  Next steps:`);
@@ -121,6 +127,8 @@ Examples:
       console.log(`  ${colors.dim('2.')} Edit system-prompt.md with your agent's instructions`);
       console.log(`  ${colors.dim('3.')} agentx validate`);
       console.log(`  ${colors.dim('4.')} agentx run . "test prompt"`);
+      console.log();
+      console.log(`  ${colors.dim('Tip:')} Use ${colors.cyan('/create-agent')} in Claude Code to generate a production-ready agent from a description.`);
     } catch (error) {
       if (error instanceof Error) {
         console.error(colors.error(`Error: ${error.message}`));
