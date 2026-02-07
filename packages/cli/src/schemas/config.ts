@@ -6,7 +6,7 @@ import { z } from 'zod';
  * All fields have sensible defaults so a completely empty config is valid.
  */
 export const globalConfigSchema = z.object({
-  registry: z.string().url().default('https://registry.agentx.dev'),
+  registry: z.string().url().default('https://agentx-web.vercel.app'),
   claude_path: z.string().default('claude'),
   default_output: z.enum(['text', 'json']).default('text'),
   telemetry: z.boolean().default(true),
