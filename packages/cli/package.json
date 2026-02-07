@@ -1,5 +1,5 @@
 {
-  "name": "agentx",
+  "name": "@knid/agentx",
   "version": "0.1.0",
   "description": "The package manager for AI agents powered by Claude Code",
   "type": "module",
@@ -56,13 +56,13 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/agentx-dev/agentx"
+    "url": "https://github.com/knid/agentx"
   },
-  "homepage": "https://agentx.dev",
+  "homepage": "https://agentx-web.vercel.app",
   "bugs": {
-    "url": "https://github.com/agentx-dev/agentx/issues"
+    "url": "https://github.com/knid/agentx/issues"
   },
-  "author": "agentx-dev",
+  "author": "knid",
   "engines": {
     "node": ">=18"
   }
