@@ -208,12 +208,12 @@ export default async function HomePage() {
               <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-primary-500/10 text-primary-400">
                 <span className="text-lg font-bold">3</span>
               </div>
-              <h3 className="mt-4 font-semibold text-white">Run</h3>
+              <h3 className="mt-4 font-semibold text-white">Run or Schedule</h3>
               <p className="mt-2 text-sm text-surface-400">
-                Run the agent from your terminal.
+                Run on demand or schedule for automated execution.
               </p>
               <code className="mt-3 inline-block rounded bg-surface-900 px-3 py-1.5 text-xs text-surface-300">
-                agentx run gmail-agent &quot;summarize emails&quot;
+                agentx schedule start gmail-agent
               </code>
             </div>
           </div>

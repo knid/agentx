@@ -1,0 +1,113 @@
+# Scheduling Agents
+
+Run agents automatically on a cron schedule using a lightweight background daemon.
+
+## How It Works
+
+Agents can declare a `schedule` block in their `agent.yaml` manifest with one or more cron-based entries. When you start a schedule, a shared background daemon process manages all active schedules and executes agents at the specified times.
+
+The daemon:
+- Runs as a detached Node.js process on your machine
+- Starts automatically when you schedule your first agent
+- Shuts down when all schedules are stopped
+- Retries failed runs (up to 2 retries with backoff)
+- Rotates logs (keeps the last 50 runs per agent)
+
+## Declaring Schedules
+
+Add a `schedule` block to your `agent.yaml`:
+
+```yaml
+name: slack-agent
+version: 1.0.0
+description: Slack assistant
+author: "@yourname"
+
+schedule:
+  - name: "Daily standup"
+    cron: "0 9 * * 1-5"
+    prompt: "Post the daily standup summary to #engineering"
+  - name: "Weekly report"
+    cron: "0 17 * * 5"
+    prompt: "Generate and post the weekly activity summary"
+```
+
+Each entry has:
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| `name` | No | Human-readable label. Defaults to the cron expression. |
+| `cron` | Yes | Standard 5-field cron expression. |
+| `prompt` | Yes | Prompt sent to the agent (max 2000 chars). |
+
+Maximum 10 schedule entries per agent.
+
+## Common Cron Patterns
+
+| Pattern | Meaning |
+|---------|---------|
+| `* * * * *` | Every minute |
+| `0 * * * *` | Every hour |
+| `0 9 * * *` | Daily at 9:00 AM |
+| `0 9 * * 1-5` | Weekdays at 9:00 AM |
+| `*/15 * * * *` | Every 15 minutes |
+| `0 0 1 * *` | First of every month |
+| `0 17 * * 5` | Fridays at 5:00 PM |
+
+## Managing Schedules
+
+### Start a schedule
+
+```bash
+agentx schedule start slack-agent
+```
+
+This validates the agent manifest, checks that secrets are configured, and starts (or signals) the background daemon.
+
+### List active schedules
+
+```bash
+agentx schedule list
+```
+
+Shows all active schedules with their status, last run time, and next run time.
+
+### View logs
+
+```bash
+# Latest run
+agentx schedule logs slack-agent
+
+# All past runs
+agentx schedule logs slack-agent --all
+```
+
+### Stop a schedule
+
+```bash
+agentx schedule stop slack-agent
+```
+
+Removes the agent from the daemon. If no schedules remain, the daemon shuts down.
+
+### Resume after restart
+
+```bash
+agentx schedule resume
+```
+
+Re-reads persisted state and restarts the daemon with all previously active agents. Missed runs are skipped — the agent waits for its next scheduled time.
+
+## Error Handling
+
+When a scheduled run fails, the daemon automatically retries:
+
+1. **First retry** after 10 seconds
+2. **Second retry** after 30 seconds
+3. If all retries fail, the schedule is marked as `errored` but continues — it will try again at the next cron time
+
+You can check failed runs with `agentx schedule logs <agent>`.
+
+## Uninstalling Scheduled Agents
+
+Running `agentx uninstall <agent>` automatically stops any active schedule for that agent before removing it.

@@ -25,6 +25,12 @@ const DOCS = [
       'Complete reference for the agent manifest file format and all available options.',
     href: '/docs/agent-yaml-reference',
   },
+  {
+    title: 'Scheduling Agents',
+    description:
+      'Set up cron-based schedules to run agents automatically in the background.',
+    href: '/docs/scheduling',
+  },
 ];
 
 export default function DocsPage() {
@@ -78,6 +84,12 @@ export default function DocsPage() {
             <li>
               <code className="text-surface-300">agentx init</code> — Scaffold a
               new agent
+            </li>
+            <li>
+              <code className="text-surface-300">
+                agentx schedule start &lt;agent&gt;
+              </code>{' '}
+              — Schedule an agent
             </li>
             <li>
               <code className="text-surface-300">agentx doctor</code> — Check
