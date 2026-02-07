@@ -31,6 +31,12 @@ const DOCS = [
       'Set up cron-based schedules to run agents automatically in the background.',
     href: '/docs/scheduling',
   },
+  {
+    title: 'Pipes and Agent Chaining',
+    description:
+      'Chain agents together with Unix pipes — feed one agent\'s output into another.',
+    href: '/docs/pipes-and-chaining',
+  },
 ];
 
 export default function DocsPage() {

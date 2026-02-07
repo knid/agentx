@@ -1,0 +1,91 @@
+# Pipes and Agent Chaining
+
+agentx agents read from stdin and write to stdout, which means you can chain them together using standard Unix pipes. The output of one agent becomes the input context for the next.
+
+## How It Works
+
+When you pipe data into an agent, the piped content is prepended to the prompt. This lets you use one agent's output as context for another:
+
+```bash
+agentx run agent-a --quiet "do something" | agentx run agent-b "use this"
+```
+
+The `--quiet` flag on the first agent suppresses the decorative header and footer, so only the raw output is piped through.
+
+## Examples
+
+### Research to Documentation
+
+Search the web for information, then create a Notion page from the results:
+
+```bash
+agentx run web-researcher --quiet "2026 AI agent framework trends" \
+  | agentx run notion-agent "create a new page summarizing this research"
+```
+
+### Data Analysis to Report
+
+Analyze a dataset, then draft an executive summary:
+
+```bash
+agentx run data-analyst --quiet "summarize quarterly revenue" --file q4.csv \
+  | agentx run writing-assistant "turn this into an executive summary"
+```
+
+### Security Scan to Issue Tracking
+
+Scan code for vulnerabilities, then file bugs for each finding:
+
+```bash
+agentx run security-scanner --quiet "audit src/auth/ for vulnerabilities" \
+  | agentx run linear-agent "create a bug for each critical finding"
+```
+
+### Code Review to Slack
+
+Review code changes, then share the results with your team:
+
+```bash
+agentx run code-reviewer --quiet "review the latest changes in src/api/" \
+  | agentx run slack-agent "post this code review summary to #engineering"
+```
+
+### Error Triage to Notion
+
+Get the latest Sentry errors, then create a triage report:
+
+```bash
+agentx run sentry-agent --quiet "show the top 5 unresolved errors" \
+  | agentx run notion-agent "create an error triage page from these findings"
+```
+
+### Multi-Step Pipelines
+
+You can chain more than two agents:
+
+```bash
+agentx run web-researcher --quiet "latest React best practices 2026" \
+  | agentx run writing-assistant --quiet "rewrite as a concise team guide" \
+  | agentx run slack-agent "post this to #frontend"
+```
+
+## Piping Files Into Agents
+
+You can also pipe file content directly using `cat` or other commands:
+
+```bash
+cat report.csv | agentx run data-analyst "find anomalies in this data"
+```
+
+Or use the `--file` flag:
+
+```bash
+agentx run data-analyst "find anomalies" --file report.csv
+```
+
+## Tips
+
+- Always use `--quiet` on intermediate agents in a pipeline to get clean output
+- The last agent in the chain can run without `--quiet` to display the decorated output
+- Use `--json` for structured output when chaining agents programmatically
+- Agent piping works with any combination of agents — mix and match based on your workflow

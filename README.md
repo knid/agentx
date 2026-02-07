@@ -28,7 +28,7 @@
 - **Scaffold agents** - Create new agents with `agentx init`
 - **Encrypted secrets** - AES-256-GCM encrypted secrets per agent
 - **Schedule agents** - Cron-based scheduling: `agentx schedule start <agent>`
-- **Pipe support** - `cat data.csv | agentx run data-analyst "summarize"`
+- **Pipe & chain agents** - `agentx run agent-a | agentx run agent-b "use this"`
 - **MCP integration** - Agents declare MCP servers for tool access
 
 ## Prerequisites
@@ -167,21 +167,50 @@ agentx schedule resume
 
 The daemon automatically retries failed runs (up to 2 retries with backoff), rotates logs (keeps last 50 per agent), and cleans up when all schedules are stopped.
 
-## Official Starter Agents
+## Agent Piping
 
-| Agent | Description |
-|-------|-------------|
-| `@agentx/gmail-agent` | Email assistant with Gmail MCP |
-| `@agentx/github-agent` | PR and issue assistant with GitHub MCP |
-| `@agentx/data-analyst` | CSV/JSON data analysis with filesystem MCP |
-| `@agentx/slack-agent` | Messaging assistant with Slack MCP |
-| `@agentx/code-reviewer` | Code review with GitHub + filesystem MCP |
-
-Install any starter agent:
+Agents write to stdout, so you can chain them with Unix pipes. The output of one agent becomes the input context for the next:
 
 ```bash
-agentx install @agentx/data-analyst
+# Research a topic, then create a Notion page from the results
+agentx run web-researcher --quiet "2026 AI trends" \
+  | agentx run notion-agent "create a new page summarizing this research"
+
+# Scan for vulnerabilities, then create a Linear issue for each finding
+agentx run security-scanner --quiet "audit src/auth/ for vulnerabilities" \
+  | agentx run linear-agent "create a bug for each critical finding"
+
+# Analyze data, then draft a report
+agentx run data-analyst --quiet "summarize quarterly revenue" --file q4.csv \
+  | agentx run writing-assistant "turn this into an executive summary"
+
+# Review code, then send the review to Slack
+agentx run code-reviewer --quiet "review the latest changes in src/api/" \
+  | agentx run slack-agent "post this code review summary to #engineering"
 ```
+
+Use `--quiet` on the first agent to suppress headers/footers and pipe only the raw output.
+
+## Official Starter Agents
+
+14 agents across all 10 categories — install any with `agentx install @agentx/<name>`:
+
+| Agent | Category | Description |
+|-------|----------|-------------|
+| `@agentx/gmail-agent` | communication | Email assistant with Gmail MCP |
+| `@agentx/slack-agent` | communication | Messaging assistant with Slack MCP |
+| `@agentx/whatsapp-agent` | communication | WhatsApp messaging via local bridge |
+| `@agentx/github-agent` | devtools | PR and issue management with GitHub MCP |
+| `@agentx/code-reviewer` | devtools | Code review with GitHub + filesystem MCP |
+| `@agentx/data-analyst` | data | CSV/JSON data analysis with filesystem MCP |
+| `@agentx/postgres-agent` | data | PostgreSQL query and schema explorer |
+| `@agentx/web-researcher` | research | Web search and synthesis with Brave + Fetch |
+| `@agentx/notion-agent` | productivity | Notion workspace and database management |
+| `@agentx/linear-agent` | productivity | Linear issue tracking and sprint management |
+| `@agentx/sentry-agent` | monitoring | Error triage and stack trace analysis |
+| `@agentx/puppeteer-agent` | automation | Browser automation, screenshots, and scraping |
+| `@agentx/writing-assistant` | writing | Proofreading, drafting, and document editing |
+| `@agentx/security-scanner` | security | Vulnerability scanning and dependency auditing |
 
 ## Configuration
 

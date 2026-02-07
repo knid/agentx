@@ -71,6 +71,17 @@ You can pipe content into an agent:
 cat report.csv | agentx run data-analyst "analyze this data"
 ```
 
+## Chain Agents Together
+
+Agents write to stdout, so you can pipe one agent's output into another:
+
+```bash
+agentx run web-researcher --quiet "2026 AI trends" \
+  | agentx run notion-agent "create a new page summarizing this"
+```
+
+Use `--quiet` on the first agent to pipe only the raw output. See [Pipes and Agent Chaining](/docs/pipes-and-chaining) for more examples.
+
 ## List Installed Agents
 
 ```bash
@@ -127,3 +138,4 @@ agentx schedule resume
 - Learn how to [create your own agent](/docs/creating-agents)
 - Read the [agent.yaml reference](/docs/agent-yaml-reference) for the full manifest spec
 - Set up [agent scheduling](/docs/creating-agents#scheduling) for automated runs
+- Learn about [pipes and agent chaining](/docs/pipes-and-chaining) to combine agents
