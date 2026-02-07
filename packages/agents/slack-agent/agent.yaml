@@ -1,5 +1,5 @@
 name: slack-agent
-version: 1.0.0
+version: 1.0.1
 description: "AI Slack assistant — send messages, search conversations, and manage channels from the terminal"
 author: "@knid"
 license: MIT
@@ -20,7 +20,7 @@ mcp_servers:
     command: npx
     args:
       - "-y"
-      - "@anthropic/mcp-server-slack"
+      - "@modelcontextprotocol/server-slack"
     env:
       SLACK_TOKEN: "${secrets.SLACK_TOKEN}"
 

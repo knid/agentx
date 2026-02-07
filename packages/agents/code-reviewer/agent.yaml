@@ -1,5 +1,5 @@
 name: code-reviewer
-version: 1.0.0
+version: 1.0.1
 description: "AI code review assistant — review PRs, analyze diffs, and provide actionable feedback"
 author: "@knid"
 license: MIT
@@ -20,14 +20,14 @@ mcp_servers:
     command: npx
     args:
       - "-y"
-      - "@anthropic/mcp-server-github"
+      - "@modelcontextprotocol/server-github"
     env:
       GITHUB_TOKEN: "${secrets.GITHUB_TOKEN}"
   filesystem:
     command: npx
     args:
       - "-y"
-      - "@anthropic/mcp-server-filesystem"
+      - "@modelcontextprotocol/server-filesystem"
       - "${secrets.WORK_DIR}"
 
 secrets:
