@@ -1,5 +1,5 @@
 name: slack-agent
-version: 1.0.1
+version: 1.0.2
 description: "AI Slack assistant — send messages, search conversations, and manage channels from the terminal"
 author: "@knid"
 license: MIT
@@ -22,11 +22,15 @@ mcp_servers:
       - "-y"
       - "@modelcontextprotocol/server-slack"
     env:
-      SLACK_TOKEN: "${secrets.SLACK_TOKEN}"
+      SLACK_BOT_TOKEN: "${secrets.SLACK_BOT_TOKEN}"
+      SLACK_TEAM_ID: "${secrets.SLACK_TEAM_ID}"
 
 secrets:
-  - name: SLACK_TOKEN
+  - name: SLACK_BOT_TOKEN
     description: "Slack Bot User OAuth token (xoxb-...) with channels:read, chat:write, and search:read scopes"
+    required: true
+  - name: SLACK_TEAM_ID
+    description: "Slack workspace Team ID (starts with T, e.g. T01234567)"
     required: true
 
 permissions:
